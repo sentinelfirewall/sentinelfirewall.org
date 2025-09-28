@@ -60,13 +60,13 @@ function siteBaseUrl() {
   ) {
     return process.env.DEPLOY_PRIME_URL;
   }
-  return 'https://wasmcloud.com';
+  return 'https://sentinelfirewall.org';
 }
 
 const config = (async (): Promise<Config> => {
   return {
-    title: 'wasmCloud',
-    tagline: 'Build applications in any language. Deploy them anywhere.',
+    title: 'Sentinel Firewall',
+    tagline: 'The firewall for Web Hosting & Self-Hosting',
     customFields: {
       description: 'The secure, distributed, WebAssembly application platform',
       tagline_1: 'Build applications in any language.',
@@ -97,7 +97,7 @@ const config = (async (): Promise<Config> => {
         {
           blog: {
             blogTitle: 'Blog',
-            blogDescription: 'The latest wasmCloud news, updates, and announcements.',
+            blogDescription: 'The latest security news, updates, and announcements.',
             blogSidebarCount: 0,
             beforeDefaultRehypePlugins: [rehypeShikiPlugin],
             rehypePlugins: [rehypeNameToId],
@@ -108,7 +108,7 @@ const config = (async (): Promise<Config> => {
             onUntruncatedBlogPosts: 'ignore',
           },
           docs: {
-            editUrl: 'https://github.com/wasmCloud/wasmcloud.com/edit/main/',
+            editUrl: 'https://github.com/sentinelfirewall/sentinelfirewall.org/edit/main/',
             beforeDefaultRehypePlugins: [rehypeShikiPlugin],
             rehypePlugins: [rehypeNameToId],
             lastVersion: 'current',
@@ -159,7 +159,7 @@ const config = (async (): Promise<Config> => {
           routeBasePath: 'community',
           path: './community',
           showReadingTime: false,
-          editUrl: 'https://github.com/wasmCloud/wasmcloud.com-dev/edit/main/',
+          editUrl: 'https://github.com/sentinelfirewall/sentinelfirewall.org/edit/main/',
           blogTitle: 'Community Calls',
           blogDescription: 'Weekly wasmCloud Wednesday agendas, notes, and recordings.',
           blogSidebarCount: 'ALL',
@@ -198,9 +198,9 @@ const config = (async (): Promise<Config> => {
     themeConfig: {
       image: '/logo/wasmcloud-social.png',
       navbar: {
-        title: 'wasmCloud',
+        title: 'Sentinel Firewall',
         logo: {
-          alt: 'wasmCloud Logo',
+          alt: 'Sentinel Logo',
           src: '/logo/wasmcloud_green.svg',
         },
         items: [
@@ -216,25 +216,25 @@ const config = (async (): Promise<Config> => {
             href: 'https://github.com/wasmcloud/wasmcloud',
             'aria-label': 'Star wasmCloud on GitHub',
             position: 'right',
-            html: `<span class="badge badge--outline">Star us! ★ <github-count repo="wasmcloud/wasmcloud">1500</github-count></span>`,
+            html: `<span class="badge badge--outline">Star us! ★ <github-count repo="sentinelfirewall/sentinel">10</github-count></span>`,
             className: 'sidebar-hidden',
           },
           await svgIconNavItem({
             svgIconPath: './static/icons/github.svg',
             label: 'GitHub',
-            href: 'https://github.com/wasmcloud/wasmcloud',
+            href: 'https://github.com/sentinelfirewall/sentinel',
           }),
           await svgIconNavItem({
             svgIconPath: './static/icons/slack.svg',
             label: 'Slack',
-            href: 'https://slack.wasmcloud.com/',
+            href: 'https://slack.sentinelfirewall.org',
           }),
         ],
       },
-      // announcementBar: {
-      //   id: 'announcement',
-      //   content: `📢 Announcement content goes here.`,
-      // },
+       announcementBar: {
+         id: 'announcement',
+         content: `<a href="https://github.com/sentinelfirewall/sentinel/wiki/Upgrade-from-CSF">📢 Easily migrate from ConfigServer Security&Firewall to Sentinel</a>`,
+       },
       footer: {
         links: [
           {
@@ -242,15 +242,15 @@ const config = (async (): Promise<Config> => {
             items: [
               {
                 label: 'GitHub',
-                href: 'https://github.com/wasmcloud/',
+                href: 'https://github.com/sentinelfirewall/',
               },
               {
                 label: 'Contributing',
-                href: 'https://github.com/wasmCloud/wasmCloud/blob/main/CONTRIBUTING.md',
+                href: 'https://github.com/sentinelfirewall/sentinel/blob/main/CONTRIBUTING.md',
               },
               {
                 label: 'Slack',
-                href: 'https://slack.wasmcloud.com',
+                href: 'https://slack.sentinelfirewall.org',
               },
               {
                 label: 'Calendar & wasmCloud Wednesdays',
