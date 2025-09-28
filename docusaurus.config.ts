@@ -249,15 +249,11 @@ const config = (async (): Promise<Config> => {
                 href: 'https://github.com/sentinelfirewall/sentinel/blob/main/CONTRIBUTING.md',
               },
               {
-                label: 'Slack',
-                href: 'https://slack.sentinelfirewall.org',
+                label: 'Discord',
+                href: 'https://discord.sentinelfirewall.org',
               },
               {
-                label: 'Calendar & wasmCloud Wednesdays',
-                href: 'https://calendar.google.com/calendar/u/0/embed?src=c_6cm5hud8evuns4pe5ggu3h9qrs@group.calendar.google.com',
-              },
-              {
-                label: 'Community Meeting Notes',
+                label: 'Community',
                 to: '/community',
               },
             ],
@@ -267,25 +263,21 @@ const config = (async (): Promise<Config> => {
             items: [
               {
                 label: 'Twitter',
-                href: 'https://twitter.com/wasmcloud',
+                href: 'https://twitter.com/sentinelfirewall',
               },
               {
                 label: 'LinkedIn',
-                href: 'https://www.linkedin.com/company/wasmCloud/',
+                href: 'https://www.linkedin.com/company/sentinelfirewall/',
               },
               {
                 label: 'YouTube',
-                href: 'https://www.youtube.com/wasmcloud',
+                href: 'https://www.youtube.com/sentinelfirewall',
               },
             ],
           },
           {
             title: 'Organization',
             items: [
-              //{
-              //  href: 'https://ostif.org/ostif-has-completed-a-security-audit-of-wasmcloud/',
-              //  label: 'Security Assessment',
-              //},
               {
                 label: 'Privacy Policy',
                 to: '/privacy-policy',
