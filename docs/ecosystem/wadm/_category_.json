@@ -1,8 +1,0 @@
-{
-  "label": "wasmCloud Application Deployment Manager (wadm)",
-  "position": 2,
-  "link": {
-    "type": "doc",
-    "id": "ecosystem/wadm/index"
-  }
-}
