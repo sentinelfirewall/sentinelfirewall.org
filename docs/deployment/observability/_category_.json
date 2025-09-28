@@ -1,9 +1,0 @@
-{
-    "label": "Observability",
-    "position": 7,
-    "link": {
-      "type": "generated-index",
-      "description": "How to maximize observability of wasmCloud"
-    }
-  }
-  
