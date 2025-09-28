@@ -143,7 +143,7 @@ const config = (async (): Promise<Config> => {
       [
         '@wasmcloud/docusaurus-github-stars',
         {
-          preloadRepo: 'wasmCloud/wasmCloud',
+          preloadRepo: 'sentinelfirewall/sentinel',
         } satisfies PluginGithubStarsOptions,
       ],
       [
@@ -213,8 +213,8 @@ const config = (async (): Promise<Config> => {
             className: 'navbar__link--version-dropdown',
           },
           {
-            href: 'https://github.com/wasmcloud/wasmcloud',
-            'aria-label': 'Star wasmCloud on GitHub',
+            href: 'https://github.com/sentinelfirewall/sentinel',
+            'aria-label': 'Star Sentinel on GitHub',
             position: 'right',
             html: `<span class="badge badge--outline">Star us! ★ <github-count repo="sentinelfirewall/sentinel">10</github-count></span>`,
             className: 'sidebar-hidden',
@@ -282,10 +282,10 @@ const config = (async (): Promise<Config> => {
           {
             title: 'Organization',
             items: [
-              {
-                href: 'https://ostif.org/ostif-has-completed-a-security-audit-of-wasmcloud/',
-                label: 'Security Assessment',
-              },
+              //{
+              //  href: 'https://ostif.org/ostif-has-completed-a-security-audit-of-wasmcloud/',
+              //  label: 'Security Assessment',
+              //},
               {
                 label: 'Privacy Policy',
                 to: '/privacy-policy',
@@ -299,13 +299,13 @@ const config = (async (): Promise<Config> => {
                 to: '/contact',
               },
               {
-                label: 'wasmCloud Swag',
+                label: 'Sentinel Swag',
                 to: '/swag',
               },
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} wasmCloud LLC. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For a list of trademarks of The Linux Foundation, please see our Trademark Usage page: https://www.linuxfoundation.org/trademark-usage. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Sentiel Project - All rights reserved. Built with Docusaurus.`,
       },
       algolia: {
         apiKey: 'f0ef30f3d98ce5e9a7dd7579bb221dfc',
