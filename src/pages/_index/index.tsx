@@ -18,8 +18,8 @@ import { Cncf } from './_components/cncf';
 function ContactForm() {
   return (
     <Layout
-      title={`wasmCloud - A CNCF Project`}
-      description="Build secure, cloud-native platforms and applications with WebAssembly"
+      title={`Sentinel Firewall - The Firewall for Web & Self-Hosting`}
+      description="Sentinel is a Stateful Packet Inspection (SPI) firewall, Login/Intrusion Detection and Security application for Linux servers."
       wrapperClassName="navbar-glass"
     >
       <main className={styles.main}>
