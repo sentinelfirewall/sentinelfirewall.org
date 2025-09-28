@@ -6,8 +6,6 @@ sidebar_position: 1
 
 wasmCloud is **compatible with, but not dependent on**, Kubernetes. We think the future of WebAssembly is bright, _and_ we also know there are plenty of systems already running in Kubernetes. For this reason, we provide the wasmCloud operator to help users run wasmCloud hosts on a Kubernetes cluster&mdash;and thereby run WebAssembly components on Kubernetes.
 
-For high-level discussion of our approach to Kubernetes and compatibility with common cloud native tooling, see [wasmCloud on Kubernetes](/docs/kubernetes/).
-
 On **this** page, you can find documentation for users wishing to deploy wasmCloud with Kubernetes, including details on prerequisites such as NATS, different strategies for deploying the platform, and how to deploy the wasmCloud operator.
 
 ## The wasmCloud platform on Kubernetes
@@ -420,3 +418,4 @@ If you run `wash get inventory` again, you will see that the wasmCloud applicati
 In order to uninstall the sample application, run `wash app undeploy hello-world`. 
 
 You can find a complete list of configurable chart values in the [`wasmcloud-platform` chart documentation](https://github.com/wasmCloud/wasmCloud/tree/main/charts/wasmcloud-platform#wasmcloud-platform).
+
