@@ -19,8 +19,6 @@ In a declarative deployment pattern, developers define the components, configura
 
 :::info[For the Kubernetes developer]
 Application manifests should be very familiar to Kubernetes developers. Moreover, you can think of a wasmCloud application deployment as roughly analogous to a Kubernetes deployment: once you define your application components in a manifest, wadm will ensure that your application reaches desired state based on that manifest.
-
-If you're interested in deploying WebAssembly applications on Kubernetes, check out [our Kubernetes operator](/docs/kubernetes) that makes it easy to deploy and leverage declarative wadm manifests.
 :::
 
 ## Application deployment lifecycle
