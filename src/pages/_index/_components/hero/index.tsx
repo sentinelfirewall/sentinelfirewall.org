@@ -9,14 +9,14 @@ type Props = {};
 
 const HEADING = [
   // h1
-  'Wasm-native',
-  'Orchestration',
+  'The Firewall for',
+  'Web & Self-Hosting',
 ] as const;
 const CONTENT = [
   // p
-  'Build, manage, and scale Wasm apps',
-  'across any cloud, K8s, or edge',
-  'even your own!',
+  'A Stateful Packet Inspection (SPI) firewall, Login/Intrusion Detection',
+  'and Security application for Linux servers.',
+  'Debian and RHEL!',
 ] as const;
 const BUTTON = [
   // [text, href]
