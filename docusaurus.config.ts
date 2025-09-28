@@ -143,27 +143,6 @@ const config = (async (): Promise<Config> => {
         } satisfies PluginSEOChecksOptions,
       ],
       [
-        '@docusaurus/plugin-content-blog',
-        {
-          id: 'community',
-          routeBasePath: 'community',
-          path: './community',
-          showReadingTime: false,
-          editUrl: 'https://github.com/sentinelfirewall/sentinelfirewall.org/edit/main/',
-          blogTitle: 'Community Calls',
-          blogDescription: 'Weekly wasmCloud Wednesday agendas, notes, and recordings.',
-          blogSidebarCount: 'ALL',
-          blogSidebarTitle: 'Past Meetings',
-          beforeDefaultRehypePlugins: [rehypeShikiPlugin],
-          rehypePlugins: [rehypeNameToId],
-          authorsMapPath: '../authors.yml', // relative to community directory
-          blogListComponent: '@theme/wasmcloud/community/list-page',
-          blogPostComponent: '@theme/wasmcloud/community/post-page',
-          onInlineAuthors: 'ignore',
-          onUntruncatedBlogPosts: 'ignore',
-        } satisfies PluginContentBlogOptions,
-      ],
-      [
         '@docusaurus/plugin-google-analytics',
         {
           trackingID: process.env.GOOGLE_ANALYTICS_ID || 'localdev',
@@ -195,7 +174,6 @@ const config = (async (): Promise<Config> => {
         },
         items: [
           { to: '/blog', label: 'Blog', position: 'left' },
-          { to: '/community', label: 'Community', position: 'left' },
           { type: 'doc', docId: 'intro', position: 'left', label: 'Docs' },
           {
             type: 'docsVersionDropdown',
@@ -241,10 +219,6 @@ const config = (async (): Promise<Config> => {
               {
                 label: 'Discord',
                 href: 'https://discord.sentinelfirewall.org',
-              },
-              {
-                label: 'Community',
-                to: '/community',
               },
             ],
           },
