@@ -1,8 +1,0 @@
-{
-  "label": "WASI",
-  "position": 7,
-  "link": {
-    "type": "doc",
-    "id": "reference/wasi/support"
-  }
-}

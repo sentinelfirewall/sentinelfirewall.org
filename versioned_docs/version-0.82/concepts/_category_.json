@@ -1,8 +1,0 @@
-{
-  "label": "Concepts",
-  "position": 3,
-  "link": {
-    "type": "generated-index",
-    "description": "Core wasmCloud concepts and terminology"
-  }
-}
