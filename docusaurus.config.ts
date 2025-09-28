@@ -201,7 +201,7 @@ const config = (async (): Promise<Config> => {
       },
        announcementBar: {
          id: 'announcement',
-         content: `<a href="/docs/upgrade-from-csf/">📢 Easily migrate from ConfigServer Security&Firewall to Sentinel</a>`,
+         content: `<a href="/docs/upgrade-from-csf/">📢 ConfigServer shutdown - Easily migrate from ConfigServer Security&Firewall (CSF) to Sentinel</a>`,
        },
       footer: {
         links: [
