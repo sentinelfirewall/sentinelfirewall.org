@@ -1,8 +1,7 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/bbca7efa-bdeb-49d8-86cd-3fcb6dcea34f/deploy-status)](https://app.netlify.com/sites/dreamy-golick-5f201e/deploys)
 
-# wasmCloud.com
+# sentinelfirewall.org
 
-Repository for the wasmCloud homepage including our community, team, docs, links, and as an ingress point for interested developers. This site is built with [Docusarus](https://docusaurus.io/).
+Repository for the sentinelfirewall.org website. This site is built with [Docusarus](https://docusaurus.io/).
 
 ## Running the site locally
 
