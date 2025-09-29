@@ -1,0 +1,68 @@
+---
+title: 'Allow/Deny Filters'
+sidebar_position: 8
+---
+
+# Advanced Allow/Deny Filters
+
+In `/etc/csf/csf.allow` and `/etc/csf/csf.deny` you can add more complex port and ip filters using the following format (you must specify a port AND an IP address):
+
+```
+tcp/udp|in/out|s/d=port|s/d=ip|u=uid
+```
+
+Broken down:
+
+- `tcp/udp`  : EITHER tcp OR udp OR icmp protocol
+- `in/out`   : EITHER incoming OR outgoing connections
+- `s/d=port` : EITHER source OR destination port number (or ICMP type)
+           (use a `_` for a port range, e.g. `2000_3000`)
+           (use a ``, for a multiport list of up to 15 ports, e.g. `22,80,443`)
+- `s/d=ip`   : EITHER source OR destination IP address
+- `u/g=UID`  : EITHER UID or GID of source packet, implies outgoing connections,
+           `s/d=IP` value is ignored
+
+> **Note**: ICMP filtering uses the "port" for `s/d=port` to set the ICMP type.
+
+Whether you use s or d is not relevant as either simply uses the iptables `--icmp-type` option. Use "`iptables -p icmp -h`" for a list of valid ICMP types.
+Only one type per filter is supported
+
+## Examples
+
+```
+# TCP connections inbound to port 3306 from IP 11.22.33.44
+tcp|in|d=3306|s=11.22.33.44
+```
+
+```
+# TCP connections outbound to port 22 on IP 11.22.33.44
+tcp|out|d=22|d=11.22.33.44
+```
+
+> **Note**: If omitted `|`, the default protocol is set to "tcp", the default connection
+direction is set to "in", so`|`
+
+```
+# TCP connections inbound to port 22 from IP 44.33.22.11
+d=22|s=44.33.22.11
+```
+
+```
+# TCP connections outbound to port 80 from UID 99
+tcp|out|d=80||u=99
+```
+
+```
+# ICMP connections inbound for type ping from 44.33.22.11
+icmp|in|d=ping|s=44.33.22.11
+```
+
+```
+# TCP connections inbound to port 22 from Dynamic DNS address
+# www.sentinelfirewall.org (for use in csf.dyndns only)
+tcp|in|d=22|s=www.sentinelfirewall.org
+```
+```
+# TCP connections inbound to port 22,80,443 from IP 44.33.22.11
+d=22,80,443|s=44.33.22.11
+```
