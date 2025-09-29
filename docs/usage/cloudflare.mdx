@@ -1,0 +1,79 @@
+---
+title: 'Cloudflare'
+sidebar_position: 24
+---
+
+# CloudFlare
+
+This features provides interaction with the CloudFlare Firewall.
+
+As CloudFlare is a reverse proxy, any attacking IP addresses (so far as iptables is concerned) come from the CloudFlare IP's. To counter this, an Apache module (`mod_cloudflare`) is available that obtains the true attackers IP from a custom HTTP header record (similar functionality is available for other HTTP daemons.
+
+However, despite now knowing the true attacking IP address, iptables cannot be used to block that IP as the traffic is still coming from the CloudFlare servers.
+
+CloudFlare have provided a Firewall feature within the user account where rules can be added to block, challenge or whitelist IP addresses.
+
+Using the CloudFlare API, this feature adds and removes attacking IPs from that firewall and provides CLI (and via the UI) additional commands.
+
+There are several restrictions to using this feature:
+
+1.  All lfd blocks will be temporary blocks so that csf/lfd can keep blocks in sync with CloudFlare
+2.  Automatic blocks via lfd are limited to `LF_MODSEC` and `LF_CXS` triggers as only through these can the domain name be determined. Any users that own domains that are involved in the trigger will get a block in their CloudFlare Firewall. Additionally, any users with the special case "any" will also get blocks
+3.  The temporary/permanent config of the lfd settings are ignored and `CF_TEMP`is used instead
+4.  `LF_TRIGGER` must not be used, the feature will not work with it enabled
+5.  `mod_cloudflare` or similar must be used to report real IP in the Apache logs
+6.  `URLGET` must be set to 2 (i.e. LWP) must be used
+7.  If `PERMBLOCK` is used, the last tempblock will remain and never be cleared. So any CloudFlare Firewall entries must be manually cleared in CloudFlare or via CLI
+8.  There are restrictions imposed by CloudFlare to the number of rules that can be created depending on the type of account used. See [Cloudflare IP Access rules](https://goo.gl/ssGu7v] for more information
+9.  When restarting csf, any old temporary blocks will still be created for lfd to clear when it restarts
+10. All interaction with CloudFlare is at *User-level*, not *Zone-level*
+
+`CF_TEMP` should be configured taking into account the maximum number of rules that the CloudFlare account allows: https://goo.gl/ssGu7v
+
+All CloudFlare users for the domains that are involved in `LF_MODSEC` and `LF_CXS` triggers will have a CloudFlare rule added. Any CloudFlare account configured to use the special case "*any*" field value in `csf.cloudflare` will have a CloudFlare rule added regardless of domain.
+
+> **NOTE**: You should always list the CloudFlare IP addresses in `/etc/csf/csf.ignore` to prevent them from being blocked by lfd from https://www.cloudflare.com/ips/
+
+
+## CLI commands
+
+There are also accompanying csf CLI commands available (see man) to interact with the Cloudflare firewall.
+
+Enabling `CF_ENABLE` enables two CloudFlare buttons in the UI in the "Other" section that mirror the CLI commands.
+
+1. Using the CLI commands all, block, challenge or whitelist rules in the provided users CloudFlare firewall can be listed, e.g.:
+   ```bash
+   csf --cloudflare list all [user1,user2,...]
+   ```
+2. Block, challenge and whitelist rules can be added for IPs to the provided users CloudFlare firewall, e.g.:
+   ```bash
+   csf --cloudflare add challenge 11.22.33.44 [user1,user2,...]
+   ```
+   Note: These rules are NOT cleared by lfd and do NOT create an equivalent iptables rule in csf)
+3. Rules can be deleted for IPs to the provided users CloudFlare firewall, e.g.:
+   ```bash
+   csf --cloudflare del 11.22.33.44 [domain,domain2,...]
+   ```
+   Note: These rules are NOT cleared in csf if they exist
+4. Domains can also be used instead of users, or a mixture of both e.g.:
+   ```bash
+   csf --cloudflare list all [user,user2,domain,...]
+   ```
+5. IPs can be added both the users CloudFlare firewall and to csf as temporary allow or deny, e.g.:
+   ```bash
+   csf --cloudflare tempadd deny 11.22.33.44 [user1,user2,...]
+   ```
+   This applies the allow/deny for the IP address in csf for `CF_TEMP` seconds as well as the users CloudFlare Firewall. Once the temporary entry expires lfd removes the IP address from both csf (as normal) as well as the users CloudFlare Firewall.
+
+   Note: Any CloudFlare account configured to use the special case "*any*" field value in `csf.cloudflare` will also have a CloudFlare rule added.
+
+   Note: In the above IP addresses are used as the target for each rule. However,
+   the target can be one of:
+   - An IP address
+   - 2 letter Country Code
+   - IP range CIDR
+   Only **Enterprise** customers can "block" a Country Code, but all can "allow" and "challenge". IP range CIDR is limited to `/16` and `/24`.
+6. To manually remove an IP block that was blocked via `CF_ENABLE` in lfd or by using "*tempadd*" use the normal csf temp CLI commands. This will remove the rules from both iptables and the users CloudFlare firewall, e.g.:
+   ```bash
+   csf --tr 44.33.22.11
+   ```
