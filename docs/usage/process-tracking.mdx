@@ -1,0 +1,53 @@
+---
+title: 'Process Tracking'
+sidebar_position: 6
+---
+
+# Process Tracking
+
+This option enables tracking of user and nobody processes and examines them for suspicious executables or open network ports. Its purpose is to identify potential exploit processes that are running on the server, even if they are obfuscated to appear as system services. If a suspicious process is found an alert email is sent with relevant information.
+
+It is then the responsibility of the recipient to investigate the process further as the script takes no further action. Processes (PIDs) are only reported once unless lfd is restarted.
+
+There is an ignore file `/etc/csf/csf.pignore` which can be used to whitelist either usernames or full paths to binaries. Care should be taken with ignoring users or files so that you don't force false-negatives.
+
+You must use the following format:
+
+```bash
+exe:/full/path/to/file
+user:username
+cmd:command line
+```
+
+The command line as reported in `/proc` has the trailing null character removed and all other occurrences replaced with a space. So, the line you specify in the file should have space separators for the command line arguments, not null characters.
+
+It is strongly recommended that you use command line ignores very carefully as any process can change what is reported to the OS.
+
+Don't list the paths to perl or php as this will prevent detection of suspicious web scripts.
+
+For more information on the difference between executable and command line, you should read and understand how the linux `/proc pseudo-filesystem` works:
+
+```bash
+man proc
+man lsof
+```
+
+It is beyond the scope of this application to explain how to investigate processes in the linux `/proc` architecture.
+
+The email alerts are sent using the `processtracking.txt` email template.
+
+It should be noted that this feature will not pickup a root compromise as root processes are ignored - you should use established IDS tools for such security considerations.
+
+## false-positives
+
+*** NOTE *** You _will_ get false-positives with this particular feature. The reason for the feature is to bring to your attention processes that have either been running for a long time under a user account, or that have ports open outside of your server. You should satisfy yourself that they are indeed false-positives before either ignoring them or trapping them in the `csf.pignore` file.
+
+We've done our best to minimise false-positives, but there's a balance between being cautious and the sensitivity needed to pick up exploits.
+
+The script itself cannot distinguish between malicious intent and intended script function - that's your job as the server administrator :)
+
+The setting `PT_SKIP_HTTP` does reduce the number of false-positives by not checking scripts running directly or through CGI in Apache. However, disabling this setting will make a more thorough job of detecting active exploits of all varieties.
+
+Another alternative might be to disable `PT_SKIP_HTTP` and increase `PT_LIMIT` to avoid picking up web scripts, however this means that real exploits will run for longer before they're picked up.
+
+You can, of course, turn the feature off too - if you really want to.
