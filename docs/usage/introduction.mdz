@@ -1,0 +1,44 @@
+---
+title: 'Introduction'
+sidebar_position: 1
+---
+
+# Introduction
+
+Sentinel includes all the scripts and tools from ConfigServer Firewall & Security (CSF) while preserving the same file names and directory structure, ensuring full compatibility with existing CSF installations. For upgrading from CSF to Sentinel, see: [Upgrade guide](/docs/upgrade-from-csf/)
+
+## ConfigServer Firewall (csf)
+
+CSF is an SPI iptables firewall that is straight-forward, easy and flexible to configure and secure with extra checks to ensure smooth operation.
+
+csf can be used on any ([supported](/docs/requirements/) generic Linux OS.
+
+The Sentinel installation includes preconfigured configurations and control panel UI's for cPanel, OpenPanel, DirectAdmin and Webmin.
+
+Directory structure:
+
+| Directory             | Description                       |
+|------------------------|-----------------------------------|
+| `/etc/csf/`           | Configuration files               |
+| `/var/lib/csf/`       | Temporary data files              |
+| `/usr/local/csf/bin/` | Scripts                           |
+| `/usr/local/csf/lib/` | Perl modules and static data      |
+| `/usr/local/csf/tpl/` | Email alert templates             |
+
+
+## Login Failure Daemon (lfd)
+
+To complement the Firewall, we have developed a daemon process that runs all the time and periodically (every X seconds) scans the latest log file entries for login attempts against your server that continually fail
+within a short period of time. Such attempts are often called "Brute-force attacks" and the daemon process responds very quickly to such patterns and blocks offending IP's quickly. Other similar products run every x minutes via
+cron and as such often miss break-in attempts until after they've finished, our daemon eliminates such long waits and makes it much more effective at performing its task.
+
+There are an array of extensive checks that lfd can perform to help alert the server administrator of changes to the server, potential problems and possible compromises.
+
+On cPanel servers, lfd is integrated into the *WHM > Service Manager*, which will restart lfd if it fails for any reason.
+
+## Control Panel Interface
+
+To help with the ease and flexibility of the suite we have developed a front-end to both csf and lfd for cPanel, DirectAdmin, OpenPanel and Webmin. From there you can modify the configuration files and stop, start and restart the
+applications and check their status. This makes configuring and managing the firewall very simple indeed.
+
+There is, of course, a comprehensive Command Line Interface (CLI) for csf.
