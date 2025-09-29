@@ -1,0 +1,91 @@
+---
+title: 'Features'
+sidebar_position: 4
+---
+
+# Features
+
+This Sentinel Firewall provides:
+- Straight-forward SPI iptables firewall script  
+- Daemon process that checks for login authentication failures for:
+  - Courier imap, Dovecot, uw-imap, Kerio  
+  - openSSH  
+  - cPanel, WHM, Webmail (cPanel servers only)  
+  - Pure-ftpd, vsftpd, Proftpd  
+  - Password protected web pages (htpasswd)  
+  - Mod_security failures (v1 and v2)  
+  - Suhosin failures  
+  - Exim SMTP AUTH  
+  - Custom login failures with separate log file and regular expression matching  
+- POP3/IMAP login tracking to enforce logins per hour
+- SSH login notification
+- SU login notification
+- Excessive connection blocking
+- UI Integration for:
+  - cPanel
+  - DirectAdmin
+  - [OpenPanel](https://openpanel.com/?utm_source=sentinelfirewall.org)
+  - InterWorx
+  - Control Web Panel (CWP)
+  - VestaCP
+  - Webmin
+- Easy upgrade between versions from within the control panel
+- Easy upgrade between versions from shell
+- Pre-configured to work on:
+  - cPanel server with all standard cPanel ports open
+  - DirectAdmin server with all standard DirectAdmin ports open
+  - OpenPanel server with all standard OpenPanel ports open
+- Auto-configures the SSH port if it’s non-standard on installation
+- Block traffic on unused server IP addresses – helps reduce server risk
+- Alert when end-user scripts send excessive emails per hour (spam detection)
+- Suspicious process reporting – detects potential exploits
+- Excessive user processes reporting
+- Excessive user process usage reporting and optional termination  
+- Suspicious file reporting – scans `/tmp` and similar directories  
+- Directory and file watching – alerts on changes  
+- Block traffic using Block Lists: DShield Block List, Spamhaus DROP List  
+- BOGON packet protection  
+- Pre-configured settings for Low, Medium, High firewall security (cPanel only)  
+- Works with multiple ethernet devices  
+- Server Security Check – basic security/settings check (via cPanel/DirectAdmin/Webmin UI)  
+- Allow Dynamic DNS IP addresses  
+- Alert if server load average remains high for a set time  
+- mod_security log reporting (if installed)  
+- Email relay tracking – alerts on excessive usage (cPanel only)  
+- IDS (Intrusion Detection System) – alerts on system/application binary changes  
+- SYN Flood protection  
+- Ping of death protection  
+- Port Scan tracking and blocking  
+- Permanent and Temporary (with TTL) IP blocking  
+- Exploit checks  
+- Account modification tracking – alerts if account entries are changed  
+- Shared syslog aware  
+- Messenger Service – shows blocked IPs custom HTML/text notice  
+- Country Code blocking (ISO code allow/deny)  
+- Port Flooding Detection – per IP/port DOS protection  
+- WHM root access notification (cPanel only)  
+- lfd Clustering – propagates IP blocks across server group  
+- Quick start csf – deferred startup for large block/allow lists  
+- Distributed Login Failure Attack detection  
+- Temporary IP allows (with TTL)  
+- IPv6 Support with ip6tables  
+- Integrated UI (no extra CP/Apache required)  
+- Integrated support for cse inside the UI  
+- cPanel Reseller access to per-reseller configurable options: Unblock, Deny, Allow, Search IP address blocks  
+- System Statistics – basic graphs (Load, CPU, Memory, etc.)  
+- ipset support for large IP lists  
+- Integrated with CloudFlare Firewall  
+- …lots more!  
+
+The reason that *Way to the Web* (original ConfigServer authors) have developed this suite is that they have found over the years of providing server services that many of the tools available for the task are either over-complex, not user friendly, or simply aren’t as effective as they could be.
+
+## ConfigServer Firewall (csf)
+CSF is an SPI iptables firewall that is comprehensive, straight-forward, easy and flexible to configure
+
+## Login Failure Daemon (lfd)
+To complement the ConfigServer Firewall (csf), a Login Failure Daemon (lfd) process runs all the time and periodically (every X seconds) scans the latest log file entries for login attempts against your server that continually fail within a short period of time. Such attempts are often called “Brute-force attacks” and the daemon process responds very quickly to such patterns and blocks offending IP’s quickly. Other similar products run every x minutes via cron and as such often miss break-in attempts until after they’ve finished, our daemon eliminates such long waits and makes it much more effective at performing its task.
+
+Login tracking is an extension of lfd, it keeps track of POP3 and IMAP logins and limits them to X connections per hour per account per IP address.
+
+## Control Panel Configuration Interface
+To help with the ease and flexibility of the suite, a front-end to both csf and lfd is available, accessible by the root account through cPanel, DirectAdmin, OpenPanel and Webmin. From there you can modify the configuration files and stop, start and restart the applications and check their status. This makes configuring and managing the firewall very simple indeed.
