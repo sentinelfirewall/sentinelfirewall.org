@@ -1,0 +1,67 @@
+---
+title: 'Exim SMTP Restriction'
+sidebar_position: 23
+---
+
+# Exim SMTP AUTH Restriction
+
+The option `SMTPAUTH_RESTRICT` will only allow SMTP AUTH to be advertised to the IP addresses listed in `/etc/csf/csf.smtpauth` plus the localhost IP addresses.
+
+The additional option `CC_ALLOW_SMTPAUTH` can be used with this option to additionally restrict access to specific countries.
+
+This is to help limit attempts at distributed attacks against `SMTP AUTH` which are difficult to achive since port 25 needs to be open to relay email.
+
+The reason why this works is that if EXIM does not advertise `SMTP AUTH` on a connection, then SMTP AUTH will not accept logins, defeating the attacks without restricting mail relaying.
+
+Note: csf and lfd must be restarted if `/etc/csf/csf.smtpauth` is modified so that the lookup file in `/etc/exim.smtpauth` is regenerated from the information from `/etc/csf/csf.smtpauth`, the localhost IP addresses, plus any countries listed in `CC_ALLOW_SMTPAUTH`.
+
+To make this option work you MUST make the following modifications to your `exim.conf`:
+
+## cPanel/WHM
+
+On cPanel servers you can do this by:
+
+1. Navigate to **WHM > Exim Configuration Manager > Advanced Editor**
+2. Search within the window and ensure that "`auth_advertise_hosts`" has not been set
+3. Scroll down and click "*Add additional configuration setting*"
+4. From the drop-down box select "**auth_advertise_hosts**"
+5. In the input box after the `=` sign add the following on one line:
+   ```bash
+   ${if match_ip{$sender_host_address}{iplsearch;/etc/exim.smtpauth}{*}{}}
+   ```
+7. Scroll to the bottom and click "*Save*"
+8. That should be all that is required after having made any necessary changes within `csf.conf` and restarting csf and then lfd
+9. Be sure to test extensively to ensure the option works as expected
+
+To reverse this change:
+
+1. Navigate to **WHM > Exim Configuration Manager > Advanced Editor**
+2. Search within the window for "`auth_advertise_hosts`"
+3. Click the wastebasket icon next to the option (if there is no wastebasket you should be able to change the setting to `*` to advertise to all IP's)
+4. Scroll to the bottom and click "*Save*"
+5. Disable `SMTPAUTH_RESTRICT` and `CC_ALLOW_SMTPAUTH` in `csf.conf` and then restart csf and then lfd
+
+Alternatively, on cPanel:
+
+1. Edit `/etc/exim.conf.local` and add the following line to an @CONFIG@ section all on one line:
+   ```bash
+   auth_advertise_hosts = ${if match_ip{$sender_host_address}{iplsearch;/etc/exim.smtpauth}{*}{}}
+   ```
+2. Rebuild the exim configuration:
+   ```bash
+   /scripts/buildeximconf
+   service exim restart
+   ```
+3. Be sure to test extensively to ensure the option works as expected
+
+
+## non-cPanel
+
+On non-cPanel platforms:
+
+1. Modify your active `exim.conf` and add the following as a single line near the top all on one line:
+   ```bash
+   auth_advertise_hosts = ${if match_ip{$sender_host_address}{iplsearch;/etc/exim.smtpauth}{*}{}}
+   ```
+2. Restart `exim`
+3. Be sure to test extensively to ensure the option works as expected
