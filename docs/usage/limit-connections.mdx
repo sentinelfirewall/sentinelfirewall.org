@@ -1,0 +1,33 @@
+---
+title: 'Connection Limits'
+sidebar_position: 18
+---
+
+# Connection Limit Protection
+
+This option configures iptables to offer protection from DOS attacks against specific ports. It can also be used as a way to simply limit resource usage by IP address to specific server services. This option limits the number of new concurrent connections per IP address that can be made to specific ports.
+
+This feature does not work on servers that do not have the iptables module xt_connlimit loaded. Typically, this will be with Monolithic kernels. VPS server admins should check with their VPS host provider that the iptables module is included.
+
+Also, although included in some older versions or RedHat/CentOS, it was only actually available from v5.3+
+
+The protection can only be applied to the TCP protocol.
+
+## Syntax
+
+Syntax for the `CONNLIMIT` setting:
+
+`CONNLIMIT` is a comma separated list of: 
+
+```bash
+port;limit
+```
+
+So, a setting of `CONNLIMIT = "22;5,80;20"` means:
+
+1. Only allow up to 5 concurrent new connections to port 22 per IP address
+2. Only allow up to 20 concurrent new connections to port 80 per IP address
+
+Note: Existing connections are not included in the count, only new SYN packets, i.e. new connections
+
+Note: Run `/etc/csf/csftest.pl` to check whether this option will function on the server
