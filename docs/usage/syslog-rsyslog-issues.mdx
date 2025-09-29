@@ -1,0 +1,36 @@
+---
+title: 'syslog/rsyslog Issues'
+sidebar_position: 22
+---
+
+# Mitigating issues with syslog/rsyslog logs (RESTRICT_SYSLOG)
+
+Unfortunately, it is trivial for end-users and scripts run by end-users to spoof log lines that appear identical to any log line reported in logs maintained by syslog/rsyslog. You can identify these logs by looking in `/etc/syslog.conf` or `/etc/rsyslog.conf`.
+
+This means that anyone on the server can maliciously trigger applications that monitor these logs, such as lfd does for the following options:
+
+`LF_SSHD` `LF_FTPD` `LF_IMAPD` `LF_POP3D` `LF_BIND` `LF_SUHOSIN` `LF_SSH_EMAIL_ALERT` `LF_SU_EMAIL_ALERT` `LF_CONSOLE_EMAIL_ALERT` `LF_DISTATTACK` `LF_DISTFTP` `LT_POP3D` `LT_IMAPD` `PS_INTERVAL` `UID_INTERVAL` `WEBMIN_LOG` `LF_WEBMIN_EMAIL_ALERT` `PORTKNOCKING_ALERT` `ST_ENABLE` `SYSLOG_CHECK` `LOGSCANNER` `CUSTOM*_LOG`
+
+A malicious user could use this issue to trigger confusing emails regarding both successful and failed login attempts, kernel log lines (including iptables log lines) etc. Unfortunately, there is very little that can be done about this as syslog/rsyslog has no security framework. Some attempt was made in newer versions of rsyslog, but this version is not available in the current versions used by RedHat/CentOS v6. It also has to be enabled and can will have adverse effects on utilities that expect a certain format for the log lines.
+
+To mitigate spoofing attempts we recommend the following, if you are willing to accept the consequences of spoofed log lines:
+
+1. We recommend setting `RESTRICT_SYSLOG` to "3" for use with option `RESTRICT_SYSLOG_GROUP` to restrict access to the syslog/rsyslog unix socket(s)
+2. Go through the options above ensuring that only those that you need are enabled
+3. Ensure that `DENY_IP_LIMIT` and `DENY_TEMP_IP_LIMIT` are set reasonably low (for example, 200). This will limit attempts to block large numbers of IP addresses
+4. Ensure that administrator/support IP addresses are listed in `/etc/csf/csf.allow` and perhaps `/etc/csf/csf.ignore`. This will prevent malicious blocking from denying you access to the server
+5. To confirm successful logins to SSH, use the "last" utility from the root shell, e.g.: `last -da`
+6. Regularly check the server and user data for exploits, old vulnerable applications and out of date OS applications
+7. Consider carefully any application that you use that centralises actions and syslog/rsyslog logs and the implications of spoofed log lines
+8. Consider the implications of this overall issue on applications and scripts other than csf/lfd that use the affected log files
+9. Do not enable syslog/rsyslog reception via UDP/TCP ports
+
+
+## CLoudlinux
+For CloudLinux clients utilizing CageFS this can be prevented by limiting access to` /dev/log` inside CageFS. 
+For that remove file: `/etc/rsyslog.d/schroot.conf` Or remove this line from that file: 
+
+```bash
+$AddUnixListenSocket /usr/share/cagefs-skeleton/dev/log
+```
+That will prevent end user's access to `/dev/log`, preventing them from spoofing. However, this does also break cron job logging.
