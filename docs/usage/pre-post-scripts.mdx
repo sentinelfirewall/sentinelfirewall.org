@@ -1,0 +1,46 @@
+---
+title: 'Pre and Post scripts'
+sidebar_position: 15
+---
+
+# External Pre- and Post- Scripts
+
+External commands (e.g. iptables rules not covered by csf) can be run before and/or after csf sets up the iptables chains and rules.
+
+
+## Pre scripts
+
+To run external commands before csf configures iptables create the file:
+
+```bash
+/usr/local/csf/bin/csfpre.sh
+```
+
+Set that file as executable and add an appropriate shebang interpreter line and then whatever external commands you wish to execute.
+
+For example:
+
+```bash
+#!/bin/sh
+/some/path/to/binary -a -b -c etc
+```
+
+Then `chmod +x /usr/local/csf/bin/csfpre.sh`
+
+## Post scripts
+
+To run external commands after csf configures iptables create the file:
+
+```bash
+/usr/local/csf/bin/csfpost.sh
+```
+
+Set that file as executable and add an appropriate shebang interpreter line and then whatever external commands you wish to execute.
+
+## Notes
+
+> **Note**: The scripts can alternatively be placed in `/etc/csf/`. If a script is found in both locations (`/etc/csf/` and `/usr/local/csf/bin/`) then only the script in `/usr/local/csf/bin/` will be executed.
+
+`csfpre.sh`/`csfpost.s` are run directly. If present, csf chmods the script `0700` and checks for a shebang. If the shebang is missing `#!/bin/bash` is added to the top. The script is then run.
+
+> **Note**: While csf runs the script with a preset *PATH*, you **MUST** use the full path to any binaries that you execute within these scripts to ensure they are run correctly
