@@ -1,0 +1,38 @@
+---
+title: 'Principles'
+sidebar_position: 2
+---
+
+# Principles
+
+Sentinel preserves all the original best practices and principles of CSF and LFD.
+
+## csf Principles
+
+The idea with csf, as with most iptables firewall configurations, is to block everything and then allow through only those connections that you want. This is
+done in iptables by DROPPING all connections in and out of the server on all protocols. Then allow traffic in and out from existing connections. Then open ports up in and outgoing for both TCP and UDP individually.
+
+This way we can control exactly what traffic is allowed in and out of the server and helps protect the server from malicious attack.
+
+In particular it prevents unauthorised access to network daemons that we want to restrict access by IP address, and also should a service suffer a compromise, it can help prevent access to compromise networks daemons, a typical example being a hackers sshd daemon running on a random open port. Perhaps the greatest of reasons is to help mitigate the effects of suffering a root compromise where often they only way to take advantage of such a failure is to open a daemon for the hacker to access the server on. While this won't prevent root compromises, it can help slow them down enough for you to notice and react.
+
+Another way that a port filtering firewall can help is when a user level  compromise occurs and a hacker installs DOS tools to effect other servers. A firewall configured to block outgoing connections except on specific ports can help prevent DOS attacks from working and make it immediately apparent to you from the system logs.
+
+csf has been designed to keep this configuration simple, but still flexible  enough to give you options to suit your server environment. Often firewall scripts can become cumbersome of complex making it impossible to identify where
+problems lie and to easily fix them.
+
+To take advantage of kernel logging of iptables dropped connections you should ensure that kernel logging daemon (klogd) is enabled. Typically, VPS servers have this disabled and you should check /etc/init.d/syslog and make sure that any klogd lines are not commented out. If you change the file, remember to
+restart syslog.
+
+## lfd Principles
+
+One of the best ways to protect the server from inbound attack against network  daemons is to monitor their authentication logs. Invalid login attempts which happen in a short space of time from the same source can often mean someone is attempting to brute-force their way into the server, usually by guessing usernames and passwords and therefore generating authentication and login  failures.
+
+lfd can monitor the most commonly abused protocols, SSHD, POP3, IMAP, FTP and HTTP password protection. Unlike other applications, lfd is a daemon process that monitors logs continuously and so can react within seconds of detecting such attempts. It also monitors across protocols, so if attempts are made on different protocols in a short space of time, all those attempts will be counted against the threshold.
+
+Once the number of failed login attempts is reached, lfd immediately forks a sub-process and uses csf to block the offending IP address from both in and outgoing connections. Stopping the attack in its tracks in a quick and timely manner. Other applications that use cron job timings to run usually completely miss brute force attacks as they run usually every 5 minutes or by which time the attack could be over, or simply biding its time. In the meantime lfd will have block the offenders IP address.
+
+By running the block and alert email actions in a sub-process, the main daemon can continue monitoring the logs without delay.
+
+If you want to know when lfd blocks an IP address you can enable the email alert (which is on by default) and you should watch the log file in `/var/log/lfd.log`.
+
