@@ -1,7 +1,7 @@
 ---
 title: "Install and Configure Setinel Firewall on a Ubuntu 24.04 server"
-authors: [ricochet]
-slug: setup-sentinel-ubuntu-24
+authors: [stefanpejcic]
+slug: install-and-configure-sentinel-firewall-ubuntu-24
 date: "2025-08-20"
 description: "Learn how to install and configure Sentinel (fork of ConfigServer Security & Firewall) on Ubuntu 24.04 LTS for enhanced VPS security."
 ---
