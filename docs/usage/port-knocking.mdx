@@ -1,0 +1,37 @@
+---
+title: 'Port Knocking'
+sidebar_position: 17
+---
+
+# Port Knocking
+
+This option configures iptables to offer port knocking to open sensitive ports based on a sequence of knocked ports for the connecting IP address.
+
+For more information on the idea of port knocking see: [https://wiki.archlinux.org/title/Port_knocking](https://wiki.archlinux.org/title/Port_knocking)
+
+The feature requires that you list a random selection of unused ports (at least 3) with a timeout. The ports you choose must not be in use and not appear in `TCP_IN` (`UDP_IN` for udp packets). The port to be opened must also not appear in `TCP_IN` (`UDP_IN` for udp packets).
+
+This feature does not work on servers that do not have the iptables module `ipt_recent` loaded. Typically, this will be with Monolithic kernels. VPS server admins should check with their VPS host provider that the iptables module is included.
+
+By default `ipt_recent` tracks only the last 100 IP addresses. The tracked IP addresses can be viewed in `/proc/net/ipt_recent/*`
+
+## Syntax
+
+Syntax for the `PORTKNOCKING` setting:
+
+```bash
+PORTKNOCKING is a comma separated list of:
+openport;protocol;timeout;kport1;kport2;kport3[...;kportN]
+```
+
+So, a setting of `PORTKNOCKING = "22;TCP;20;100;200;300;400"` means:
+
+Open Port 22 TCP for 20 seconds to the connecting IP address to new connections once ports 100, 200, 300 and 400 have been accessed (i.e. knocked with a SYN packet) each knock being less than 20 seconds apart.
+
+Access to port 22 remains active after 20 seconds until the connection is dropped, however new connections will not be allowed.
+
+More information about the ipt_recent module can be found in the iptables man page and at [https://www.snowman.net/projects/ipt_recent/](https://www.snowman.net/projects/ipt_recent/)
+
+Note: IP addresses do not appear in any of the iptables chains when using this module. You must view the `/proc/net/ipt_recent/` files as per the module documentation to view IP addresses in the various stages of the knock.
+
+Restarting csf resets the `ipt_recent` tables and removes all of the knocks.
