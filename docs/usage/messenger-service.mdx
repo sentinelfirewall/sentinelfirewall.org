@@ -1,0 +1,149 @@
+---
+title: 'Messenger Service'
+sidebar_position: 12
+---
+
+# Messenger Service
+
+This feature allows the display of a message to a blocked connecting IP address to inform the user that they are blocked in the firewall. This can help when users get themselves blocked, e.g. due to multiple login failures. The service is provided by several daemons running on ports providing HTTPS, HTML or TEXT message.
+
+This services uses the `iptables nat table` and the associated `PREROUTING` chain.
+The `ipt_REDIRECT` module is used to redirect the incoming port to the relevant messenger service server port.
+
+Temporary and/or permanent (`csf.deny`) IP addresses can be serviced by this feature.
+
+It does NOT include redirection of any `GLOBAL` or `BLOCK` deny lists.
+
+It does require the `IO::Socket::INET` perl module.
+
+It does NOT work on servers that do not have the iptables module `ipt_REDIRECT` loaded. Typically, this will be with Monolithic kernels. VPS server admins should check with their VPS host provider that the iptables module is included.
+
+If you change any of the files in `/etc/csf/messenger/` you must restart lfd as they are all cached in memory.
+
+Use of this feature can be controlled by the *Country Code* options:
+```bash
+CC_MESSENGER_ALLOW = ""
+CC_MESSENGER_DENY = ""
+```
+
+See `/etc/csf/csf.conf` for an explanation of those options.
+
+## Messenger User
+
+
+You should create a unique user that the messenger services will run under. This user should be disabled and have no shell access, but should have a home directory.
+
+For example, you can create such an account (*in this example called "csf"*) from the root shell using:
+
+```bash
+useradd csf -s /bin/false
+```
+
+## TEXT Messenger Server
+
+The `TEXT` message that is displayed is provided by the file:
+
+```bash
+/etc/csf/messenger/index.text
+```
+
+This file should only contain text. The TEXT server providing this file simply sends the contents to the connecting port and no protocol exchange takes place. This means that it may not be suitable for use with protocols such as POP3.
+
+The server has a built-in function that will replace the text `[IPADDRESS]` in index.text with the IP address that is blocked by the firewall. This will help the blocked user know what their blocked IP address is. You can also use the text `[HOSTAME]` which will be replaced by the servers FQDN hostname.
+
+The TEXT server does not support SSL connections, so redirecting port `995` will not work.
+
+The TEXT server port should not be added to the `TCP_IN` list.
+
+There is **a maximum of 15 port allowed** in `MESSENGER_TEXT_IN`.
+
+## HTML and HTTPS Messenger v1 Server
+
+The HTML and HTTPS message that is displayed is provided by the file:
+
+```bash
+/etc/csf/messenger/index.html
+/etc/csf/messenger/index.recaptcha.html (if using the RECAPTCHA_* feature)
+```
+
+The HTML server providing this page is very rudimentary but will accept the use of linked images that are stored in the `/etc/csf/messenger/` directory. The images must be of either jpg, gif or png format. These images are loaded into memory so you should keep the number and size to a minimum. No other linked resource files are supported (e.g. `.css`, `.js`).
+
+It is recommeneded to to use inline images (source embedding) to improve page load speed and reduce lfd overheads.
+
+As the HTML server requires interaction with the client, there is a timer on the connection to prevent port hogging.
+
+The server has a built-in function that will replace the text `[IPADDRESS]` in index.html with the IP address that is blocked by the firewall. This will help the blocked user know what their blocked IP address is. You can also use the text `[HOSTAME]` which will be replaced by the servers FQDN hostname.
+
+The HTTPS service obtains the necessary certificates from `MESSENGER_HTTPS_CONF`.
+
+The HTML and HTTPS server ports should not be added to the `TCP_IN` list.
+
+There is **a maximum of 15 ports allowed** in `MESSENGER_HTML_IN` and `MESSENGER_HTTPS_IN`.
+
+## HTML and HTTPS Messenger v2 Server
+
+This service is **only available to cPanel servers running Apache**. It utilises the existing Apache service to provide the message as well as *RECAPTCHA* unblocking. It is enabled through the `MESSENGERV2` option.
+
+**The server must be running Apache v2.4 and using cPanel's EasyApache v4**.
+
+## HTML and HTTPS Messenger v3 Server
+
+This service is **available to servers running Apache or Litespeed/Openlitespeed**.
+It utilises the existing web server service to provide the message as well as *RECAPTCHA* unblocking. It is enabled through the `MESSENGERV3` option.
+
+The web server configuration is created in `/var/lib/csf/csf.conf` using the following templates in `/usr/local/csf/tpl/`:
+
+- `apache.main.txt`
+- `apache.http.txt`
+- `apache.https.txt`
+- `litespeed.main.txt`
+- `litespeed.http.txt`
+- `litespeed.https.txt`
+
+- `*.main.txt` can contain any web server directives required for the service tofunction.
+- `*.http.txt` contains the configuration to offer the HTTP service
+- `*.https.txt` contains the configuration to offer the HTTPS service. In this file the virtualhost container is created for each domain served with a certificate on the server.
+
+These templates are not overwritten during a csf upgrade.
+
+PHP is needed to display the `MESSENGER` web files (see following). This iscontrolled by the `MESSENGERV3PHPHANDLER` setting.
+
+If left empty, the `MESSENGER` service will try to configure this. If this does not work, this should be set as an "`Include /path/to/csf_php.conf`" or similar file which must contain appropriate web server configuration to allow PHP scripts to run under the `MESSENGER_USER` account. This line will be included within each `MESSENGER` VirtualHost container. This will replace the `[MESSENGERV3PHPHANDLER]` line from the csf webserver template files.
+
+## Messenger v2 and v3
+
+For the service to work, the Messenger User **MUST** have a specific directory structure. This will be created by the script if it does not exist so long as the user has been created with a home directory. The structure needs to mimic the standard web server setup, e.g. using "csf" as the user:
+
+```bash
+/home/csf/ (Owner csf:csf, Permissions 711)
+/home/csf/public_html/ (Owner csf:nobody, Permissions 711)
+```
+
+
+lfd will populate this structure with the following files:
+
+- `/home/csf/public_html/.htaccess`
+- `/home/csf/public_html/index.php`
+
+If `RECAPTCHA_*` is enabled these files will be created if they do not alreadyexist:
+
+- `/home/csf/recaptcha.php`
+- `/home/csf/public_html/index.php`
+- `/home/csf/en.php`
+
+The HTML and HTTPS index file is created from (respectively):
+- `/etc/csf/messenger/index.php`
+- `/etc/csf/messenger/index.recaptcha.php`
+- `/etc/csf/messenger/en.php`
+
+You should NOT modify the templates in `/etc/csf/messenger/` as they will be overwritten when csf upgrades. Instead modify the files within `/home/csf/`.
+
+Each time lfd is restarted a check is made of the preceding structure and any missing files are recreated. This process also creates the configuration file for Apache in `/etc/apache2/conf.d/csf.messenger.conf` and restarts httpd.
+
+`/etc/apache2/conf.d/csf.messenger.conf` contains all the VirtualHost directives to serve the `MESSENGERV2` services.
+
+Translation of `/home/csf/en.php` is possible by creating the appropriate `[abbr].php` file.
+
+The HTML and HTTPS server ports should NOT be added to the `TCP_IN` list.
+
+As Apache is handling all requests for HTML and HTTPS connections, all scripting for the service is provided by the files in `/home/csf/public_html/` which allows the use of PHP and CGI scripts.
