@@ -1,0 +1,43 @@
+---
+title: 'Port Flood Protection'
+sidebar_position: 14
+---
+
+# Port Flood Protection
+
+This option configures iptables to offer protection from DOS attacks against specific ports. This option limits the number of connections per time interval that new connections can be made to specific ports.
+
+This feature does not work on servers that do not have the iptables module `ipt_recent` loaded. Typically, this will be with Monolithic kernels. VPS server admins should check with their VPS host provider that the iptables module is included.
+
+By default `ipt_recent` tracks only the last 100 IP addresses. The tracked IP addresses can be viewed in `/proc/net/ipt_recent/*` where the port number is the filename.
+
+## Syntax
+
+Syntax for the `PORTFLOOD` setting:
+
+`PORTFLOOD` is a comma separated list of: 
+
+```bash
+port;protocol;hit count*;interval seconds
+```
+
+So, a setting of `PORTFLOOD = "22;tcp;5;300,80;tcp;20;5"` means:
+
+1. If more than 5 connections to tcp port 22 within 300 seconds, then block that IP address from port 22 for at least 300 seconds after the last packet is seen, i.e. there must be a "quiet" period of 300 seconds before the block is lifted
+
+2. If more than 20 connections to tcp port 80 within 5 seconds, then block that IP address from port 80 for at least 5 seconds after the last packet is seen, i.e. there must be a "quiet" period of 5 seconds before the block is lifted
+
+More information about the `ipt_recent` module can be found in the `iptables man` page and at [http://snowman.net/projects/ipt_recent/](http://snowman.net/projects/ipt_recent/)
+
+Note: Blocked IP addresses do not appear in any of the iptables chains when using this module. You must manipulate the `/proc/net/ipt_recent/*` files as per the module documentation to view and remove IP addresses that are currently blocked if the blocks have not yet expired.
+
+Restarting `csf` resets the `ipt_recent` tables and removes all of its blocks.
+
+## Restrictions
+
+There are some restrictions when using `ipt_recent`:
+
+1. By default it only tracks 100 addresses per table (we try and increase this to 1000 via `modprobe`)
+2. By default it only counts 20 packets per address remembered
+
+*This means that you need to keep the hit count to below 20.
