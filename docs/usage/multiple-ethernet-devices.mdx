@@ -1,0 +1,8 @@
+---
+title: 'Multiple Ethernet Devices'
+sidebar_position: 9
+---
+
+If you have multiple ethernet NICs that you want to apply all rules to, then you can set `ETH_DEVICE` to the interface name immediately followed by a plus sign. For example, `eth+` will apply all iptables rules to `eth0`, `eth1`, etc.
+
+That said, if you leave `ETH_DEVICE` blank **all rules will be applied to all ethernet devices** equally.
