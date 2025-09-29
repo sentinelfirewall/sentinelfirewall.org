@@ -17,34 +17,30 @@ function WasmCloudSolves({ color = 'light-gray' }: Props) {
   return (
     <Section color={color} id="wasmcloud-solutions">
       <SectionContent align="center">
-        <SectionTag>wasmCloud Solves</SectionTag>
-        <SectionHeading>Are you a team struggling with...</SectionHeading>
+        <SectionTag>Sentinel Firewall</SectionTag>
+        <SectionHeading>the Complete Security Toolkit for Linux servers</SectionHeading>
       </SectionContent>
       <SectionContent>
         <Grid className={styles.content} center>
           <GridItem>
-            <SvgCost style={{ color: 'var(--section-color-highlight)' }} />
-            <h4>Idle Infrastructure?</h4>
+            <SvgUpdates style={{ color: 'var(--section-color-highlight)' }} />
+            <h4>iptables firewall</h4>
             <p>
-              Does scalability preparedness, unpredictable workloads and long cold starts leave you
-              with inefficient infrastructure and ever-growing cloud costs?
+              A Stateful Packet Inspection (SPI) iptables firewall that track the state of network connections, allowing only legitimate traffic to pass through. 
             </p>
           </GridItem>
           <GridItem>
-            <SvgUpdates style={{ color: 'var(--section-color-highlight)' }} />
-            <h4>Maintaining Apps?</h4>
+            <SvgCost style={{ color: 'var(--section-color-highlight)' }} />
+            <h4>intrusion detection</h4>
             <p>
-              Are developers patching the same vulnerabilities and managing updates and dependencies
-              across 100's or 1,000's of apps? Do you have apps that fall behind your golden
-              template?
+              A daemon that monitors login failures for services like SSH, cPanel, FTP, IMAP, SMTP, and web apps. It also supports custom log parsing with regex.
             </p>
           </GridItem>
           <GridItem>
             <SvgDistributed style={{ color: 'var(--section-color-highlight)' }} />
-            <h4>Distributed Deployments?</h4>
+            <h4>security tools</h4>
             <p>
-              Do you need to run your apps across cloud vendors? Close to your users? Multi-Region?
-              On the Edge? On Prem? Disrupted, disconnected, intermittent or limited connectivity?
+              A suite of security tools: block lists, mod_security log reporting, exploit checks, system alerts.. <a href="/docs/features">and more</a></p>
             </p>
           </GridItem>
         </Grid>
