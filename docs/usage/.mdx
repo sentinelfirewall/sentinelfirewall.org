@@ -1,0 +1,143 @@
+---
+title: 'Commands'
+sidebar_position: 3
+---
+
+# Command Line Options
+
+Sentinel retains all file names and commands for both CSF and LFD.
+
+## csf
+
+Before configuring and starting csf for the first time, it is a good idea to run the script `/etc/csf/csftest.pl` using:
+
+```bash
+perl /etc/csf/csftest.pl
+```
+
+This script will test whether the required iptables modules are functioning on the server. Don't worry if it cannot run all the features, so long as the script doesn't report any FATAL errors.
+
+You can view the csf command line options by using either:
+
+```
+man csf
+```
+
+or 
+
+```
+csf -h
+```
+
+These options allow you to easily and quickly control and view csf. All the  configuration files for csf are in `/etc/csf` and include:
+
+- `csf.conf`	- the main configuration file, it has helpful comments explaining
+		  what each option does
+- `csf.allow`	- a list of IP's and CIDR addresses that should always be allowed 
+		  through the firewall
+- `csf.deny`	- a list of IP's and CIDR addresses that should never be allowed
+		  through the firewall
+- `csf.ignore`	- a list of IP's and CIDR addresses that lfd should ignore and
+		  not block if detected
+- `csf.*ignore`	- various ignore files that list files, users, IP's that lfd
+		  should ignore. See each file for their specific purpose and tax
+
+If you modify any of the files listed above, you will need to restart csf and then lfd to have them take effect. If you use the command line options to add or deny IP addresses, then csf automatically does this for you.
+
+Both csf.allow and csf.deny can have comments after the IP address listed. The comments must be on the same line as the IP address otherwise the IP rotation of csf.deny will remove them.
+
+If editing the csf.allow or csf.deny files directly, either from shell or the WHM UI, you should put a `<space>#<space>` between the IP address and the comment like this:
+
+```
+11.22.33.44 # Added because I don't like them
+```
+
+You can also include comments when using the `csf -a` or `csf -d` commands, but in those cases you must not use a `#` like this:
+
+```
+csf -d 11.22.33.44 Added because I don't like them
+```
+
+If you use the shell commands then each comment line will be timestamped. You will also find that if lfd blocks an IP address it will add a descriptive comment plus timestamp.
+
+If you don't want csf to rotate a particular IP in csf.deny if the line limit is reach you can do so by adding "do not delete" within the comment field, e.g.:
+
+```
+11.22.33.44 # Added because I don't like them. do not delete
+```
+
+## Include statement in configuration files
+
+You can use an *Include* statement in the following files that conform to the format of the originating file:
+
+- `/etc/csf/csf.allow`
+- `/etc/csf/csf.blocklists`
+- `/etc/csf/csf.cloudflare`
+- `/etc/csf/csf.deny`
+- `/etc/csf/csf.dirwatch`
+- `/etc/csf/csf.dyndns`
+- `/etc/csf/csf.fignore`
+- `/etc/csf/csf.ignore`
+- `/etc/csf/csf.logfiles`
+- `/etc/csf/csf.logignore`
+- `/etc/csf/csf.mignore`
+- `/etc/csf/csf.pignore`
+- `/etc/csf/csf.rblconf`
+- `/etc/csf/csf.redirect`
+- `/etc/csf/csf.rignore`
+- `/etc/csf/csf.signore`
+- `/etc/csf/csf.sips`
+- `/etc/csf/csf.smtpauth`
+- `/etc/csf/csf.suignore`
+- `/etc/csf/csf.syslogs`
+- `/etc/csf/csf.syslogusers`
+- `/etc/csf/csf.uidignore`
+
+You must specify the full path to the included file, e.g. in `/etc/csf/csf.allow`:
+
+```
+Include /etc/csf/csf.alsoallow
+```
+
+Do **NOT** put a comment after the Include filename as this will not work and will invalidate the Include line.
+
+> Note: None of the csf commands for adding or removing entries from the originating file will be performed on Include files. They are treated as read-only.
+
+## lfd
+
+lfd does not have any command line options of its own but is controlled through init or systemd which stops and starts the daemon. It is configured using the `/etc/csf/csf.conf` file.
+
+The best way to see what lfd is up to is to take a look in `/var/log/lfd.lo`g where its activities are logged.
+
+The various email alert templates follow, care should be taken if you modify that file to maintain the correct format:
+
+- `/usr/local/csf/tpl/accounttracking.txt` - for account tracking alert emails
+- `/usr/local/csf/tpl/alert.txt` - for port blocking emails
+- `/usr/local/csf/tpl/connectiontracking.txt` - for connection tracking emails
+- `/usr/local/csf/tpl/consolealert.txt` - for console root login alert emails
+- `/usr/local/csf/tpl/cpanelalert.txt` - for WHM/cPanel account access emails
+- `/usr/local/csf/tpl/exploitalert.txt` - for system exploit alert emails
+- `/usr/local/csf/tpl/filealert.txt` - for suspicious file alert emails
+- `/usr/local/csf/tpl/forkbombalert.txt` - for fork bomb alert emails
+- `/usr/local/csf/tpl/integrityalert.txt` - for system integrity alert emails
+- `/usr/local/csf/tpl/loadalert.txt` - for high load average alert emails
+- `/usr/local/csf/tpl/logalert.txt` - for log scanner report emails
+- `/usr/local/csf/tpl/logfloodalert.txt` - for log file flooding alert emails
+- `/usr/local/csf/tpl/modsecipdbcheck.txt` - for ModSecurity IP DB size alert emails
+- `/usr/local/csf/tpl/netblock.txt` - for netblock alert emails
+- `/usr/local/csf/tpl/permblock.txt` - for temporary to permanent block alert emails
+- `/usr/local/csf/tpl/portknocking.txt` - for Port Knocking alert emails
+- `/usr/local/csf/tpl/portscan.txt` - for port scan tracking alert emails
+- `/usr/local/csf/tpl/processtracking.txt` - for process tracking alert emails
+- `/usr/local/csf/tpl/queuealert.txt` - for email queue alert emails
+- `/usr/local/csf/tpl/relayalert.txt` - for email relay alert emails
+- `/usr/local/csf/tpl/resalert.txt` - for process resource alert emails
+- `/usr/local/csf/tpl/scriptalert.txt` - for script alert emails
+- `/usr/local/csf/tpl/sshalert.txt` - for SSH login emails
+- `/usr/local/csf/tpl/sualert.txt` - for SU alert emails
+- `/usr/local/csf/tpl/tracking.txt` - for POP3/IMAP blocking emails
+- `/usr/local/csf/tpl/uialert.txt` - for UI alert emails
+- `/usr/local/csf/tpl/usertracking.txt` - for user process tracking alert emails
+- `/usr/local/csf/tpl/watchalert.txt` - for watched file and directory change alert emails
+- `/usr/local/csf/tpl/webminalert.txt` - for Webmin login emails
+
