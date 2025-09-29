@@ -13,7 +13,6 @@ import { WasmCloudTechnology } from './_components/wasmcloud-technology';
 import { WebAssemblyComponents } from './_components/webassembly-components';
 import { WhatIsWasmCloud } from './_components/what-is-wasmcloud';
 import { WhyUseWasmCloud } from './_components/why-use-wasmcloud';
-import { Cncf } from './_components/cncf';
 
 function ContactForm() {
   return (
@@ -37,7 +36,6 @@ function ContactForm() {
         <Kubernetes />
         <WasmCloudEcosystem />
         <GetStarted />
-        <Cncf />
       </main>
     </Layout>
   );
