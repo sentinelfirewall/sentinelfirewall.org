@@ -1,0 +1,26 @@
+---
+title: 'Script Email Alerts'
+sidebar_position: 5
+---
+
+# Script Email Alerts
+
+**(cPanel installations of csf only)**
+
+lfd can scan for emails being sent through exim from scripts on the server.
+
+To use this feature you must add an extended email logging line to **WHM > Exim Configuration Manager > Advanced Editor**. Search for `log_selector` and ensure that the following are included:
+
+```
+log_selector = +arguments +subject +received_recipients
+```
+
+This setting will then send an alert email if more than `LF_SCRIPT_LIMIT` lines appear with the same `cwd=` path in them within an hour. This can be useful in identifying spamming scripts on a server, especially PHP scripts running under the nobody account. The email that is sent includes the exim log lines and also attempts to find scripts that send email in the path that may be the culprit.
+
+This option uses the `/usr/local/csf/tpl/scriptalert` text file for alert emails.
+
+If you enable the option `LF_SCRIPT_ALERT` then lfd will disable the path using `chattr +i` and `chmod 000` so that the user cannot re-enable it. The alert email also then includes the commands needed to re-enable the offending path.
+
+Any false-positives can be added to `/etc/csf/csf.signore` and lfd will then ignore those listed scripts.
+
+
