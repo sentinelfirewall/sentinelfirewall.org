@@ -1,0 +1,50 @@
+---
+title: 'Directory Watching'
+sidebar_position: 7
+---
+
+# Directory Watching
+
+Directory Watching enables lfd to check `/tmp` and `/dev/shm` and other pertinent directories for suspicious files, i.e. script exploits.
+
+If a suspicious file is found an email alert is sent using the template `filealert.txt`.
+
+> **NOTE**: Only one alert per file is sent until lfd is restarted, so if you remove a suspicious file, remember to restart lfd.
+
+To remove any suspicious files found during directory watching, enable corresponding setting the suspicious files will be appended to a tarball in `/var/lib/csf/suspicious.tar` and deleted from their original location. Symlinks are simply removed.
+
+If you want to extract the tarball to your current location, use:
+
+```bash
+tar -xpf /var/lib/csf/suspicious.tar
+```
+
+This will preserver the path and permissions of the original file.
+
+Any false-positives can be added to `/etc/csf/csf.fignore` and lfd will then ignore those listed files and directories.
+
+Within `csf.fignore` is a list of files that lfd directory watching will ignore.
+
+You must specify the full path to the file.
+
+You can also use perl regular expression pattern matching, for example:
+```bash
+/tmp/clamav.*
+/tmp/.*\.wrk
+```
+
+Remember that you will need to escape special characters (precede them with a backslash) such as `\. \?`
+
+Pattern matching will only occur with strings containing an asterisk (`*`), otherwise full file path matching will be applied.
+
+You can also add entries to ignore files owner by a particular user by  preceding it with user:, for example:
+```bash
+user:bob
+```
+
+
+> **Note**: files owned by root are ignored
+
+For information on perl regular expressions: http://www.perl.com/doc/manual/html/pod/perlre.html
+
+The second aspect of Directory Watching is enabled with `LF_DIRWATCH_FILE`. This option allows you to have lfd watch a particular file or directory for changes and should they change and email alert using `watchalert.txt` is sent. It uses a simple md5sum match from the output of "`ls -laAR`" on the entry and so will traverse directories if specified.
