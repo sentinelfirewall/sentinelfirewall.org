@@ -1,0 +1,76 @@
+---
+title: 'lfd Clustering'
+sidebar_position: 16
+---
+
+# lfd Clustering
+
+This set of options (`CLUSTER*`) in `csf.conf` allows the configuration of an lfd cluster environment where a group of servers can share blocks and, via the CLI, configuration option changes, allows and removes.
+
+In the configuration there are two comma separated lists of IP addresses:
+
+```bash
+CLUSTER_SENDTO = ""
+CLUSTER_RECVFROM = ""
+```
+
+> **Note**: Do not use spaces in these lists
+
+If you want all members of the lfd cluster to send block notifications to each other then both settings should be them same. You also need to enable `CLUSTER_BLOCK` (enabled by default) for lfd to automatically send blocks to all members in `CLUSTER_SENDTO`.
+
+However, you can also set up a cluster such that some members only provide notifications to others and do not accept blocks from others. For example, you may have a cluster of servers that includes one that hosts a support desk that
+you do not want to block clients from accessing. In such an example you might want to exclude the support desk server from the `CLUSTER_SENDTO` list, but include it in the `CLUSTER_RECVFROM` list.
+
+The option `CLUSTER_MASTER` is the IP address of the master node in the cluster allowed to send `CLUSTER_CONFIG` changes to servers listed in the local `CLUSTER_SENDTO` list. Only cluster members that have `CLUSTER_MASTER` set to this IP address will accept `CLUSTER_CONFIG` changes.
+
+There is another option, `CLUSTER_NAT` that should be used if the IP address of the server does not appear in ip/ifconfig, for example if it is a NAT configuration. If this is the case, add the IP address of the server that this configuration is on and used in `CLUSTER_SENDTO`/`CLUSTER_RECVFROM` to `CLUSTER_NAT`.
+
+`CLUSTER_LOCALADDR` can be set if you do not want to use the servers main IP, i.e. the first one listed via `0.0.0.0`.
+
+The `CLUSTER_PORT` must be set to the same port on all servers. The port should NOT be opened in `TCP_IN` or `TCP_OUT` as csf will automatically add appropriate in and out bound rules to allow communication between cluster members.
+
+The `CLUSTER_KEY` is a secret key used to encrypt cluster communications using [the Blowfish algorithm](https://en.wikipedia.org/wiki/Blowfish_(cipher)). It should be between `8` and `56` ASCII characters long, longer is better, and must be the same on all members of the cluster.
+
+This key must be kept secret!
+
+When blocks are sent around the cluster they will maintain their originals parameters, e.g. `permanent`/`temporary`, direction (`in`/`out`), ports, etc. All blocks are traded except for `LT_POP3D` and `LT_IMAPD`.
+
+The cluster uses 10 second timeouts in its communications, if the timeout is reached then that cluster members notification will be lost.
+
+Note: You must restart csf and then lfd after making any `CLUSTER_*` changes
+
+## lfd Cluster CLI and UI
+
+See `csf --help` for the list of new CLI commands. Additional options will automatically become available in the UI once `CLUSTER_SENDTO` has been configured.
+
+Only cluster members listed in `CLUSTER_RECVFROM` can send out requests to those members listed in `CLUSTER_SENDTO`.
+
+Only the server listed in `CLUSTER_MASTER` will be accepted as the source of `CLUSTER_CONFIG` configuration option requests, such as: `--cconfig`, `--cfile`, `--crestart`
+
+The CLI options `--cfile` and `--cfiler` allow you to synchronise csf configuration files throughout a cluster from the `CLUSTER_MASTER server`.
+
+There is currently only provision for permanent simple IP denies and allows from the CLI (i.e. not `Allow`/`Deny` Filters).
+
+The cluster `PING` sends a ping to each `CLUSTER_SENDTO` member which will report the request in their respective lfd.log files. This is intended as a test to confirm that cluster communications are functioning.
+
+The options to change the configuration option in csf.conf in cluster members should be used with caution to ensure that member specific options are not overwritten. The intention of the two options is that the `--cconfig` option be used if multiple changes are required and the final request is a `--cconfigr` to restart csf and lfd to effect the requested changes immediately.
+
+
+## A Note on lfd Cluster Security
+
+The clustering option is undoubtedly powerful in allowing servers to pre-emptively block access attempts as one server is hit before the attack can spread to other members of the cluster.
+
+This communication, however, does introduce a security risk. Since communications are made over the network, they are open to interception. Also, there is nothing to stop any local user from accessing the network port and
+sending data to it, though it will be discarded unless properly encrypted[`*`].
+
+There are security measures implemented to help mitigate attacks:
+
+1. csf constructs iptables rules such that only cluster members can communicate over the cluster port with each other
+2. The clustered servers will only accept data from connections from IPs listed in `CLUSTER_RECVFROM` or `CLUSTER_MASTER`
+3. [`*`]All communications are encrypted using the Blowfish symmetric block cipher through a Pure Perl cpan module using the Cipher Block Chaining module and the configured `CLUSTER_KEY`
+4. `CLUSTER_CONFIG` set to 0 prevents the processing of configuration option requests
+5. Only `CLUSTER_MASTER` will be accepted as the source of `CLUSTER_CONFIG` configuration option requests
+
+Should the configured secret key (passphrase) be compromised or guessed or a flaw found in the encryption modules or their implementation in csf, a malicious connection could reconfigure the csf firewall and then leverage a local or remote root escalation. This should be considered if you decide to use this option.
+
+> **THERE ARE NO GUARANTEES OR WARRANTIES PROVIDED THAT THIS FACILITY IS SECURE AND ANY DAMAGE ARISING FROM THE EXPLOITATION OF THIS OPTION IS ENTIRELY AT YOUR OWN RISK**.
