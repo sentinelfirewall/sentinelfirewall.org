@@ -7,7 +7,7 @@ export default function RemoteChangelog() {
     fetch('https://raw.githubusercontent.com/sentinelfirewall/sentinel/refs/heads/main/csf/changelog.txt')
       .then((res) => res.text())
       .then((text) => setContent(text))
-      .catch(() => setContent('❌ Failed to load changelog.'));
+      .catch(() => setContent('Please open: https://raw.githubusercontent.com/sentinelfirewall/sentinel/refs/heads/main/csf/changelog.txt'));
   }, []);
 
   return (
