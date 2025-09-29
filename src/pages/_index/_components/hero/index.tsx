@@ -21,7 +21,7 @@ const CONTENT = [
 const BUTTON = [
   // [text, href]
   'Get Started',
-  '/docs/tour/hello-world',
+  '/docs/installation',
 ] as const;
 
 function Hero({}: Props) {
