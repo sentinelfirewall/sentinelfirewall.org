@@ -1,0 +1,21 @@
+---
+title: 'Login Tracking'
+sidebar_position: 4
+---
+
+# Login tracking
+
+Login tracking is an extension of lfd, it keeps track of POP3 and IMAP logins and limits them to X connections per hour per account per IP address. It uses iptables to block offenders to the appropriate protocol port only and flushes
+them every hour and starts counting logins afresh. **All of these blocks are temporary and can be cleared manually by restarting csf**.
+
+There are two settings, one of POP3 and one for IMAP logins. It's generally not a good idea to track IMAP logins as many clients login each time to perform a protocol transaction (there's no need for them to repeatedly login, but you can't avoid bad client programming!). So, if you do have a need to have some limit to IMAP logins, it is probably best to set the login limit quite high.
+
+If you want to know when lfd temporarily blocks an IP address you can enable the email tracking alerts option (which is on by default)
+
+You can also add your own login failure tracking using regular expression matching. Please read [/usr/local/csf/bin/regex.custom.pm](https://raw.githubusercontent.com/sentinelfirewall/sentinel/refs/heads/main/csf/regex.custom.pm) for more information
+
+> **Important Note**: To enable successful SSHD login tracking you should ensure that `UseDNS` in `/etc/ssh/sshd_config` is disabled by using:
+> ```
+> UseDNS no
+>```
+> and that sshd has then been restarted.
