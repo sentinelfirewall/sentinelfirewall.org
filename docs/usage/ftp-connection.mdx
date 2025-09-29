@@ -1,0 +1,35 @@
+---
+title: 'FTP Connection'
+sidebar_position: 11
+---
+
+# A note about FTP Connection Issues
+
+It is important when using an SPI firewall to ensure FTP client applications are configured to use Passive (`PASV`) mode connections to the server.
+
+On servers running Monolithic kernels (e.g. VPS Virtuozzo/OpenVZ and custom built kernels) `ip_conntrack` and `ip_conntrack_ftp` iptables kernel modules may not be available or fully functional. If this happens, FTP passive mode (PASV)
+won't work. In such circumstances you will have to open a hole in your firewall and configure the FTP server to use that same hole.
+
+## pure-FTPD
+
+With `pure-ftpd` you could add the port range `30000:35000` to `TCP_IN` and add the following line to `/etc/pure-ftpd.conf` and then restart pure-ftpd:
+
+```bash
+PassivePortRange	30000 35000
+```
+## ProFTPD
+
+With `proftpd` you could add the port range `30000:35000` to `TCP_IN` and add the following line to `/etc/proftpd.conf` and then restart proftpd:
+
+```bash
+PassivePorts	30000 35000
+```
+
+## FTP over SSL/TLS
+
+FTP over SSL/TLS will usually fail when using an SPI firewall. This is because of the way the FTP protocol established a connection between client and server.
+iptables fails to establish a related connection when using FTP over SSL because the FTP control connection is encrypted and so cannot track the relationship between the connection and the allocation of an ephemeral port.
+
+If you need to use FTP over SSL, you will have to open up a passive port block in both csf and your FTP server configuration (see above).
+
+Perversely, this makes your firewall less secure, while trying to make FTP connections more secure.
