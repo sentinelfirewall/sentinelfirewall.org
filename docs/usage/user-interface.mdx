@@ -60,3 +60,29 @@ Required Perl Modules:
                 perl-IO-Socket-INET6 perl-Socket6
     ```
 
+## UI Skinning
+
+The csf UI provided through cPanel, OpenPanel, DirectAdmin, Webmin and the integrated UI via lfd, all user the Bootstrap and jQuery frameworks. Additional styling is added to complement the frameworks and the UI flow.
+
+If you want to make changes to the styling or add jQuery or JavaScript code you can create:
+
+1. A text file `/etc/csf/csf.header` which will be included in each of the UI pages before the closing `</head>` tag
+2. A text file `/etc/csf/csf.body` which will be included in each of the UI pages after the opening `<body>` tag[`*`]
+3. A text file `/etc/csf/csf.footer` which will be included in each of the UIpages before the closing `</body>` tag 
+
+The html tag will also have a data-post field containing the internal action being performed by the UI.
+
+You can also make additions to the `<html>` and `<body>` tags by creating `/etc/csf/csf.htmltag` and `/etc/csf/csf.bodytag` respectively[`*`]. Additions made in these files **MUST** all be on a single line at the top of the file, anything else will be ignored. The text will then be placed within the respective tag, e.g. if you want `<body data-name='result'>` you would put the following on a single line in `/etc/csf/csf.bodytag`:
+`data-name='result'`
+
+[`*`] This functionality is ONLY available on webmin servers
+
+## Mobile View
+
+The Mobile View feature has a breakpoint of 600px which will initiate the full browser subset of UI features. This may mean breaking out of framesets in some control panels, so a return to the main control panel window is included. Also switching back to the Desktop view will remain in the full browser display.
+
+If you switch to the Mobile View and then switch to main control panel window further accesses to the UI will always default to the Mobile View. If you switch back after returning to the Desktop View, subsequent access will default to that view. This reverts back to the default breakpoint behaviour in new browser sessions as the system uses session cookies to keep track of the chosen view which are reset one browser shutdown.
+
+There are options in `csf.conf` that control the behaviour of these options under `STYLE_*`. Any styling changes MUST respect these options.
+
+> **Note**: We do NOT recommend reformatting the UI output as any changes in the core code may not be reflected in the user experience and can break the product. Only style changes should be made.
