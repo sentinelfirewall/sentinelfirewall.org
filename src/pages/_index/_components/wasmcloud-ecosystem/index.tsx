@@ -13,11 +13,11 @@ function WasmCloudEcosystem({}: Props) {
   return (
     <Section id="ecosystem" color="space-blue">
       <SectionContent align="center">
-        <SectionTag>WasmCloud Ecosystem</SectionTag>
-        <SectionHeading>Wasm-native works with cloud-native</SectionHeading>
-        <p>wasmCloud works with the tools you know and love today.</p>
+        <SectionTag>Supports</SectionTag>
+        <SectionHeading>All Major Control Panels</SectionHeading>
+        <p>and generic Linux server</p>
         <p>
-          <Link className="button" href="/">
+          <Link className="button" href="/docs/usage/installation-on-generic-linux/">
             Docs
           </Link>
         </p>
