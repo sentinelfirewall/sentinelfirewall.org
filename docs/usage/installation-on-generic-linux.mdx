@@ -1,0 +1,14 @@
+---
+title: 'Installation on a Generic Server'
+sidebar_position: 10
+---
+
+# Installation on a Generic Linux Server
+
+Sentinel Firewall can be configured to run on a generic Linux server. There are some changes to the features available:
+
+1. The default port range is for a typical non-cPanel web server and may need altering to suit the servers environment
+2. The Process Tracking ignore file may need expanding in `/etc/csf/csf.pignore` to suit the server environment
+3. A standard Webmin Module to configure csf is included - see the [install.txt](https://raw.githubusercontent.com/sentinelfirewall/sentinel/refs/heads/main/csf/install.txt) for more information
+
+The codebase is the same for a all installations, the `csf.conf` file simply has the cPanel specific options removed and the *GENERIC* option added.
