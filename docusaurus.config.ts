@@ -165,12 +165,12 @@ const config = (async (): Promise<Config> => {
     ],
 
     themeConfig: {
-      image: '/logo/wasmcloud-social.png',
+      image: '/logo/sentinel_social.png',
       navbar: {
         title: 'Sentinel Firewall',
         logo: {
           alt: 'Sentinel Logo',
-          src: '/logo/wasmcloud_green.svg',
+          src: '/logo/sentinel_purple_icon_logo.svg',
         },
         items: [
           { to: '/blog', label: 'Blog', position: 'left' },
