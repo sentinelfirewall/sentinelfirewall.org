@@ -1,0 +1,27 @@
+---
+title: 'Block Reporting'
+sidebar_position: 13
+---
+
+# Block Reporting
+
+lfd can run an external script when it performs and IP address block following for example a login failure. This is done by setting the configuration variable `BLOCK_REPORT` to a script that must be executable. The following parameters are passed the the script as arguments:
+
+- `ARG 1 = IP Address`	- The IP address or CIDR being blocked
+- `ARG 2 = ports`		- Port, comma separated list or `*` for all ports
+- `ARG 3 = permanent`	- `0=temporary` block, `1=permanent block`
+- `ARG 4 = inout`		- Direction of block: `in`, `out` or `inout`
+- `ARG 5 = timeout`		- If a temporary block, TTL in seconds, otherwise `0`
+- `ARG 6 = message`		- Message containing reason for block
+- `ARG 7 = logs`		- The logs lines that triggered the block (will contain line feeds between each log line)
+- `ARG 8 = trigger`		- The configuration settings triggered
+
+lfd launches the `BLOCK_REPORT` in a forked process which terminates after `10` seconds if not completed by then. It runs under the root account, so great care should be exercised with regard to security of the `BLOCK_REPORT` script.
+
+To also run an external script when a temporary block is unblocked by lfd. `UNBLOCK_REPORT` can be the full path of the external script which must be executable.
+The following parameters are passed the the script as arguments:
+
+- `ARG 1` = IP Address	- The IP address or CIDR being blocked
+- `ARG 2` = port*		- Port, there could be multiple unblocks for each IP
+
+[`*`] If a port was specified in the initial block.
