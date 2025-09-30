@@ -19,14 +19,17 @@ const INTRO_CONTENT: {
   heading: React.ReactNode;
   description: React.ReactNode;
 } = {
-  tag: 'What is wasmCloud?',
-  heading: 'Fast-track the development, deployment, and orchestration of WebAssembly components',
+  tag: 'What is Sentinel?',
+  heading: 'fork of ConfigServer Firewall & Security',
   description: (
     <p>
-      wasmCloud is an open source project from the Cloud Native Computing Foundation (CNCF) that
-      enables teams to build polyglot applications composed of reusable Wasm components and run
-      them—resiliently and efficiently—across any cloud, Kubernetes, datacenter, or edge.
+      ⚡ The sudden shutdown of Configserver in 2025 has left a huge gap in our ecosystem.
+      For years, ConfigServer Firewall (CSF) has been the backbone of server security for hosting providers and control panels —stable, feature-rich, and trusted by sysadmins everywhere.
     </p>
+    <p>
+      Luckily, Way to the Web Limited released the CSF script under the GPL license.
+      Soon after, a group of us SysAdmins have started the Sentinel project — a fork of CSF that is actively maintained, community-driven, and fully compatible as a drop-in replacement on existing servers.
+    </p>    
   ),
 };
 
@@ -44,29 +47,27 @@ const SWITCHER_CONTENT: Array<{
   {
     id: 'build',
     image: '/pages/home/what-is-wasmcloud/build.svg',
-    title: 'Build',
+    title: 'CSF',
     features: [
       {
-        title: 'Faster Development Cycles',
+        title: 'Advanced Firewall Protection',
         description: (
-          <>Leverage reusable, polyglot, Wasm components on a reliable, distributed platform.</>
+          <>Provides robust iptables-based filtering to secure servers from unauthorized access.</>
         ),
       },
       {
-        title: 'Centrally Maintainable Apps',
+        title: 'Granular Access Control',
         description: (
           <>
-            Reusable, version-controlled components empower platform teams to maintain thousands of
-            diverse apps centrally.
+            Manage inbound and outbound traffic with precise port and IP restrictions.
           </>
         ),
       },
       {
-        title: 'Integrate with Existing Stacks',
+        title: 'Brute-Force Defense',
         description: (
           <>
-            wasmCloud has first-tier support for Kubernetes, AWS, Azure, GCP, Jenkins, GitHub
-            Actions, ArgoCD, Backstage, Chainguard, Databases, Messaging, and more.
+            Blocks repeated login attempts and suspicious activity automatically.
           </>
         ),
       },
@@ -75,32 +76,29 @@ const SWITCHER_CONTENT: Array<{
   {
     id: 'compose',
     image: '/pages/home/what-is-wasmcloud/compose.svg',
-    title: 'Compose',
+    title: 'LFD',
     features: [
       {
-        title: 'Development Without Lock-In',
+        title: 'Real-Time Intrusion Detection',
         description: (
           <>
-            Define application dependencies at runtime via contract driven interfaces leveraging
-            different vendors across deployments, dev, QA, or prod.
+            Monitors system logs for failed login attempts and malicious behavior.
           </>
         ),
       },
       {
-        title: 'Truly Portable Apps',
+        title: 'Automated IP Blocking',
         description: (
           <>
-            Run the same Wasm application across operating systems and architectures&mdash;no new
-            builds required. Linux, MacOS X, Windows, ARM, x86, and more.
+            Instantly bans attackers showing suspicious login patterns.
           </>
         ),
       },
       {
-        title: 'Custom Capabilities',
+        title: 'Alert & Notification System',
         description: (
           <>
-            Easily extend the secure wasmCloud host at runtime to support custom dependencies,
-            hardware, or business contracts.
+            Sends security alerts to keep administrators informed.
           </>
         ),
       },
@@ -109,33 +107,29 @@ const SWITCHER_CONTENT: Array<{
   {
     id: 'run',
     image: '/pages/home/what-is-wasmcloud/run.svg',
-    title: 'Run',
+    title: 'UI',
     features: [
       {
-        title: 'Scale-to-Zero with Zero Cold Starts',
+        title: 'User-Friendly Dashboard',
         description: (
           <>
-            Sub-millisecond start times and vertical autoscaling means workloads scale to the
-            demand.
+            Simplifies firewall and LFD management with an intuitive web UI.
           </>
         ),
       },
       {
-        title: 'Reliable, Fault-Tolerant Apps',
+        title: 'Quick Rule Management',
         description: (
           <>
-            Horizontal scaling with automated fail-over gives apps capability-level resiliency,
-            reliability, and scalability.
+            Add, edit, or remove firewall rules without command-line complexity.
           </>
         ),
       },
       {
-        title: 'Deploy Across Clouds',
+        title: 'Live Monitoring Tools',
         description: (
           <>
-            Close to your users, with local-first routing and at-most-once delivery, wasmCloud
-            delivers cross-region, cross-cloud, and cross-edge capability-level resiliency to every
-            deployment
+            View active connections, blocks, and logs in real-time.
           </>
         ),
       },
