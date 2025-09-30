@@ -185,9 +185,6 @@ function WhatIsWasmCloudSwitcher({}: Props) {
                 </div>
               ))}
             </GridItem>
-            <GridItem>
-              <img src={content.image} alt="" />
-            </GridItem>
           </Grid>
         </SwitcherContent>
       ))}
