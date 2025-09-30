@@ -13,14 +13,11 @@ function WhyUseWasmCloud({}: Props) {
       <SectionContent className={styles.content}>
         <SectionTag>Why use Sentinel?</SectionTag>
         <SectionHeading>
-          Security. Control. Automation. Visibility. Reliability. Ease of Management.
+          Security. Control. Automation. Ease of Management.
         </SectionHeading>
         <p>
           Sentinel firewall (CSF and LFD) offers advanced firewall protection, real-time intrusion detection, and an intuitive web interface—giving administrators powerful tools to safeguard servers while simplifying day-to-day management.
         </p>
-      </SectionContent>
-      <SectionContent className={styles.image}>
-        <img src="/pages/home/why-use-wasmcloud/wasm-everywhere.svg" alt="" />
       </SectionContent>
     </Section>
   );
