@@ -11,13 +11,12 @@ function WhyUseWasmCloud({}: Props) {
   return (
     <Section color="space-blue" id="why-use-wasmcloud">
       <SectionContent className={styles.content}>
-        <SectionTag>Why use wasmCloud?</SectionTag>
+        <SectionTag>Why use Sentinel?</SectionTag>
         <SectionHeading>
-          Productivity. Maintainability. Portability. Reusability. Availability. Security.
+          Security. Control. Automation. Visibility. Reliability. Ease of Management.
         </SectionHeading>
         <p>
-          WebAssembly components are a finer-grained abstraction for application composition and a
-          Wasm-specific orchestrator maximizes their full potential.
+          Sentinel firewall (CSF and LFD) offers advanced firewall protection, real-time intrusion detection, and an intuitive web interface—giving administrators powerful tools to safeguard servers while simplifying day-to-day management.
         </p>
       </SectionContent>
       <SectionContent className={styles.image}>
