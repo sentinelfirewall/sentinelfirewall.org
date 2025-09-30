@@ -1,5 +1,5 @@
 ---
-title: "Install and Configure Setinel Firewall on a Ubuntu 24.04 server"
+title: "Install and Configure Sentinel Firewall on a Ubuntu 24.04 server"
 authors: [stefanpejcic]
 slug: install-and-configure-sentinel-firewall-ubuntu-24
 date: "2025-08-20"
