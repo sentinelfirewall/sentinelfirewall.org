@@ -40,7 +40,7 @@ function WasmCloudSolves({ color = 'light-gray' }: Props) {
             <SvgDistributed style={{ color: 'var(--section-color-highlight)' }} />
             <h4>security tools</h4>
             <p>
-              A suite of security tools: block lists, mod_security log reporting, exploit checks, system alerts.. <a href="/docs/features">and more</a></p>
+              A suite of security tools: block lists, mod_security log reporting, exploit checks, system alerts.. <a href="/docs/features">and more</a>
             </p>
           </GridItem>
         </Grid>
