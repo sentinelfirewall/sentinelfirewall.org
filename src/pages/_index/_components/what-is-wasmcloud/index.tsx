@@ -22,14 +22,16 @@ const INTRO_CONTENT: {
   tag: 'What is Sentinel?',
   heading: 'fork of ConfigServer Firewall & Security',
   description: (
+  <>
     <p>
       ⚡ The sudden shutdown of Configserver in 2025 has left a huge gap in our ecosystem.
-      For years, ConfigServer Firewall (CSF) has been the backbone of server security for hosting providers and control panels —stable, feature-rich, and trusted by sysadmins everywhere.
+      For years, ConfigServer Firewall (CSF) has been the backbone of server security for hosting providers and control panels — stable, feature-rich, and trusted by sysadmins everywhere.
     </p>
     <p>
       Luckily, Way to the Web Limited released the CSF script under the GPL license.
       Soon after, a group of us SysAdmins have started the Sentinel project — a fork of CSF that is actively maintained, community-driven, and fully compatible as a drop-in replacement on existing servers.
-    </p>    
+    </p>
+  </> 
   ),
 };
 
