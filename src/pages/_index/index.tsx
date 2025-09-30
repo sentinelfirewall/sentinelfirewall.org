@@ -26,7 +26,7 @@ function ContactForm() {
         <WasmCloudSolves />
         <WhatIsWasmCloud />
         <WhyUseWasmCloud />
-        <PlatformEngineering />
+        {/*<PlatformEngineering /> */}
         {/* TODO: enable once video is produced */}
         {/* <WasmCloudTechnology /> */}
         <WebAssemblyComponents />
