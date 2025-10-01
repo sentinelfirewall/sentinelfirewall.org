@@ -3,7 +3,7 @@ import Layout from '@theme/Layout';
 import Heading from '@theme/Heading';
 import Link from '@docusaurus/Link';
 
-const REDIRECT_LINK = 'https://app.gather.town/app/uoWBIow9WnsTDD4u/wasmCloud%20Innovation%20Day';
+const REDIRECT_LINK = 'https://openpanel.com?utm_source=sentinelfirewall.org';
 
 function ContactForm() {
   React.useEffect(() => {
@@ -11,22 +11,21 @@ function ContactForm() {
   }, []);
 
   return (
-    <Layout title={`Contact`} description="wasmCloud - Why stop at the Edge?">
+    <Layout title={`Contact`} description="Sentinel Firewall - Redirecting..">
       <main style={{ margin: '0 auto', width: 'max-content', paddingTop: '10vh' }}>
         <Heading
           as="h1"
           style={{ textAlign: 'center', marginBottom: 'calc(var(--ifm-leading) * 2)' }}
         >
-          Redirecting to Gather
+          Redirecting to OpenPanel
         </Heading>
 
         <p>
-          Thanks for joining us! We are redirecting you to wasmCloud Innovation Day Hangout on
-          Gather.
+          We are redirecting you to openpanel.com
         </p>
         <p>
           If you are not redirected, please use the following link:{' '}
-          <Link to={REDIRECT_LINK}>Visit Gather</Link>
+          <Link to={REDIRECT_LINK}>Visit OpenPanel</Link>
         </p>
       </main>
     </Layout>
