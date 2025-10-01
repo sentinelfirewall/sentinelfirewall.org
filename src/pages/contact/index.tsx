@@ -7,7 +7,7 @@ function ContactForm() {
     return (
         <Layout
             title={`Contact`}
-            description="wasmCloud - Why stop at the Edge?">
+            description="Contact Us">
             <main>
                 <div style={{ display: "flex", flexDirection: "row" }}>
                     <div style={{ width: "25%" }}></div>
