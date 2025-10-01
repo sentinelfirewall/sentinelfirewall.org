@@ -22,7 +22,7 @@ const DEFAULT_PROPS: Props = {
   heading: 'Join the community',
   intro: (
     <p>
-      Stop in to a wasmCloud Wednesday meeting, host a WebAssembly meetup, drop in on our Slack
+      Star us on Github, write blog post about Sentinel, drop in on our Discord
       channel. There are plenty of ways to get connected with the wider community for support,
       insight, use-cases and expertise.
     </p>
@@ -35,7 +35,7 @@ function GetInvolved({
   heading = DEFAULT_PROPS.heading,
   intro = DEFAULT_PROPS.intro,
 }: Props) {
-  const { PLAYLIST, CALENDAR, GITHUB, SLACK } = Links;
+  const { PLAYLIST, GITHUB, SLACK } = Links;
 
   return (
     <Section color={color} id="community">
@@ -51,25 +51,19 @@ function GetInvolved({
               <li>
                 <Link href={GITHUB}>
                   <img src="/pages/home/icon/github.svg" alt="" />
-                  <span>Star wasmCloud on GitHub</span>
+                  <span>Star Sentinel Firewall on GitHub</span>
                 </Link>
               </li>
               <li>
                 <Link href={SLACK}>
                   <img src="/pages/home/icon/slack.svg" alt="" />
-                  <span>Join our Slack community</span>
+                  <span>Join our Discord community</span>
                 </Link>
               </li>
               <li>
                 <Link href={PLAYLIST}>
                   <img src="/pages/home/icon/youtube.svg" alt="" />
-                  <span>Watch past Community Calls</span>
-                </Link>
-              </li>
-              <li>
-                <Link href={CALENDAR}>
-                  <img src="/pages/home/icon/calendar.svg" alt="" />
-                  <span>Add to your calendar</span>
+                  <span>Watch YouTube tutorials</span>
                 </Link>
               </li>
             </ul>
