@@ -10,17 +10,16 @@ type Props = Partial<ComponentProps<typeof Section> & typeof DEFAULT_CONTENT>;
 const DEFAULT_CONTENT = {
   color: 'light-gray' as const,
   id: 'webassembly-components',
-  tag: 'WebAssembly Components',
-  heading: 'New to Components?',
+  tag: 'How-to guides & articles',
+  heading: 'Our Blog',
   intro: (
     <p>
-      Leverage WebAssembly components' polyglot programming, security features, and modularity to
-      build secure, maintainable applications.
+      Discover expert tips, best practices, and deep dives into Linux Security—helping you strengthen security, optimize performance, and stay ahead of server threats.
     </p>
   ),
   link: {
-    href: 'https://wasmcloud.com/docs/concepts/components',
-    text: 'Read our components starter guide',
+    href: '/blog',
+    text: 'Read our blog articles',
   },
   img: {
     src: '/pages/home/webassembly-components/components.svg',
