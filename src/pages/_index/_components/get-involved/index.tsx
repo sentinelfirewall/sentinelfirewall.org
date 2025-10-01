@@ -7,7 +7,6 @@ import { Links } from '@site/src/constants';
 import { SectionContent } from '@site/src/pages/_components/section-content';
 import Link from '@docusaurus/Link';
 import { Grid, GridItem } from '@site/src/pages/_components/grid';
-import { Wednesday } from './wednesday';
 
 type Props = {
   color?: SectionColor;
@@ -69,7 +68,6 @@ function GetInvolved({
             </ul>
           </GridItem>
           <GridItem>
-            <Wednesday />
           </GridItem>
         </Grid>
       </SectionContent>
