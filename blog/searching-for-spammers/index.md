@@ -1,5 +1,5 @@
 ---
-title: "Searching for Spammers"
+title: "Searching for Spammers on cPanel/WHM"
 authors: [stefanpejcic]
 slug: searching-for-spammers-on-cpanel-whm
 date: "2025-10-01"
