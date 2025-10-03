@@ -16,7 +16,7 @@ type Props = {
 function GetStarted({
   color = 'yellow',
   tag = 'Get Started',
-  heading = 'Your _Universal_ Golden Path starts *here*',
+  heading = 'Start using _Sentinel_ *Firewall*',
 }: Props) {
   return (
     <Section color={color}>
@@ -28,30 +28,28 @@ function GetStarted({
         <Grid className={styles.content} alignLast>
           <GridItem>
             <img src="/pages/home/icon/build.svg" alt="" />
-            <h4>Download the wasmCloud CLI</h4>
-            <p>Get all the dev tooling you need by installing the wasmCloud "wash" CLI</p>
-            <a href="/docs/installation" target="_blank" className="button">
-              Download wash
+            <h4>Install Sentinel</h4>
+            <p>Download and install Sentinel Firewall on your Linux server</p>
+            <a href="/docs/installation" className="button">
+              Download Sentinel
             </a>
           </GridItem>
           <GridItem>
             <img src="/pages/home/icon/compose.svg" alt="" />
-            <h4>Build your first component</h4>
-            <p>Start building with standard interfaces using one of our examples</p>
+            <h4>Upgrade from CSFt</h4>
+            <p>Upgrade from CSF to Sentinel on your existing server with ConfigServer Firewall</p>
             <a
-              href="https://github.com/wasmCloud/wasmCloud/tree/main/examples"
+              href="docs/upgrade-from-csf/"
               className="button"
-              target="_blank"
-              rel="noreferrer"
             >
-              See Examples
+              Upgrade from CSF
             </a>
           </GridItem>
           <GridItem>
             <img src="/pages/home/icon/run.svg" alt="" />
-            <h4>Deploy on wasmCloud</h4>
-            <p>Deploy your application with the wasmCloud orchestrator</p>
-            <a href="/docs/ecosystem/wadm/" className="button">
+            <h4>Visit Docs</h4>
+            <p>Read the documentation to get familiar with csf and lfd</p>
+            <a href="/docs/intro/" className="button">
               Read Documentation
             </a>
           </GridItem>
