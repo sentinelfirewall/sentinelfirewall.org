@@ -231,25 +231,17 @@ const config = (async (): Promise<Config> => {
             title: 'Organization',
             items: [
               {
-                label: 'Privacy Policy',
-                to: '/privacy-policy',
+                label: 'About',
+                to: '/docs/intro/',
               },
               {
-                label: 'Terms and Conditions',
-                to: '/terms-conditions',
-              },
-              {
-                label: 'Contact & Mailing List',
+                label: 'Contact',
                 to: '/contact',
-              },
-              {
-                label: 'Sentinel Swag',
-                to: '/swag',
               },
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} Sentiel Project - All rights reserved. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Sentinel Project - All rights reserved. “ConfigServer” is a trademark of Way to the Web Limited.`,
       },
       algolia: {
         apiKey: 'f0ef30f3d98ce5e9a7dd7579bb221dfc',
