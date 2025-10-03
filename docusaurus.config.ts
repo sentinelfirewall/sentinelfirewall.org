@@ -216,10 +216,6 @@ const config = (async (): Promise<Config> => {
                 label: 'Contributing',
                 href: 'https://github.com/sentinelfirewall/sentinel/blob/main/CONTRIBUTING.md',
               },
-              {
-                label: 'Discord',
-                href: 'https://discord.sentinelfirewall.org',
-              },
             ],
           },
           {
