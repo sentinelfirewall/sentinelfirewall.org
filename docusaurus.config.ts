@@ -226,16 +226,8 @@ const config = (async (): Promise<Config> => {
             title: 'Social',
             items: [
               {
-                label: 'Twitter',
-                href: 'https://twitter.com/sentinelfirewall',
-              },
-              {
                 label: 'LinkedIn',
                 href: 'https://www.linkedin.com/company/sentinelfirewall/',
-              },
-              {
-                label: 'YouTube',
-                href: 'https://www.youtube.com/sentinelfirewall',
               },
             ],
           },
