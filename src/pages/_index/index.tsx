@@ -33,8 +33,8 @@ function ContactForm() {
         <GetInvolved />
         {/* TODO: enable once case studies are approved */}
         {/* <CaseStudies /> */}
-        <Kubernetes />
-        <WasmCloudEcosystem />
+        {/* <Kubernetes />*/}
+        {/* <WasmCloudEcosystem />*/}
         <GetStarted />
       </main>
     </Layout>
