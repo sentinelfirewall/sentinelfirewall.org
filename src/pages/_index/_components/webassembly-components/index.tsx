@@ -38,7 +38,7 @@ function WebAssemblyComponents({
 }: Props) {
   return (
     <Section id={id} color={color}>
-      <SectionContent aside={<img src={img.src} alt={img.alt} />}>
+      <SectionContent>
         <SectionTag>{tag}</SectionTag>
         <SectionHeading>{heading}</SectionHeading>
         {intro}
