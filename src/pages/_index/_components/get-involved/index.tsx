@@ -50,19 +50,7 @@ function GetInvolved({
               <li>
                 <Link href={GITHUB}>
                   <img src="/pages/home/icon/github.svg" alt="" />
-                  <span>Star Sentinel Firewall on GitHub</span>
-                </Link>
-              </li>
-              <li>
-                <Link href={SLACK}>
-                  <img src="/pages/home/icon/slack.svg" alt="" />
-                  <span>Join our Discord community</span>
-                </Link>
-              </li>
-              <li>
-                <Link href={PLAYLIST}>
-                  <img src="/pages/home/icon/youtube.svg" alt="" />
-                  <span>Watch YouTube tutorials</span>
+                  <span>Star project on GitHub</span>
                 </Link>
               </li>
             </ul>
