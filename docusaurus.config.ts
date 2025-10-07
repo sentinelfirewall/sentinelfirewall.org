@@ -239,9 +239,9 @@ const config = (async (): Promise<Config> => {
         copyright: `Copyright © ${new Date().getFullYear()} Sentinel Project - All rights reserved. “ConfigServer” is a trademark of Way to the Web Limited.`,
       },
       algolia: {
-        apiKey: 'f0ef30f3d98ce5e9a7dd7579bb221dfc',
-        indexName: 'wasmcloud',
-        appId: '2IM4TMH501',
+        apiKey: 'd2762d518bb51ac3878db9ad955bc979',
+        indexName: 'sentinel',
+        appId: 'QIKF8F986S',
       },
     } satisfies PresetClassicThemeConfig,
 
