@@ -240,7 +240,7 @@ const config = (async (): Promise<Config> => {
       },
       algolia: {
         apiKey: 'd2762d518bb51ac3878db9ad955bc979',
-        indexName: 'Sentinel Firewall',
+        indexName: 'sentinel_docs_pages',
         appId: 'QIKF8F986S',
       },
     } satisfies PresetClassicThemeConfig,
