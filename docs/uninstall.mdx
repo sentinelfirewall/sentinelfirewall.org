@@ -1,0 +1,31 @@
+---
+title: 'Uninstall'
+sidebar_position: 9999
+---
+
+This section covers how to uninstall Sentinel Firewall with both CSF and the LFD daemon from your server.
+
+To uninstall Sentinel Firewall, execute: 
+
+```bash
+bash <(curl -sSL https://raw.githubusercontent.com/sentinelfirewall/sentinel/refs/heads/main/csf/uninstall.sh)
+```
+
+
+<details>
+
+<summary>What's in that uninstall script?</summary>
+
+It is always a good idea to inspect scripts before running them!
+
+View file on Github: [uninstall.sh]( https://raw.githubusercontent.com/sentinelfirewall/sentinel/refs/heads/main/csf/uninstall.sh)
+
+</details>
+
+
+:::info
+Uninstalling Sentinel Firewall does **not** clean up your existing iptables. These rulles will still exist in iptables until server is restarted or iptables rules manually removed.
+:::
+
+
+The uninstaller will **not** remove any [dependencies]() such as `perl`, `ipset`, or `gd-library`. You must uninstall these manually.
