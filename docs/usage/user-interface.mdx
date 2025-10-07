@@ -63,6 +63,20 @@ Required Perl Modules:
 
 ## Control Panels
 
+Sentinel Firewall can be configured to run on the most popular Control Panels.
+
+The codebase is the same for all installations, the `csf.conf` file simply has that panel specific options added and the *GENERIC* option removed.
+
+
+### cPanel
+
+cPanel/WHM integration is available in a form of a WHM plugin.
+
+- `/etc/csf/cpanel.allow` whitelists the cPanel update servers
+- `/etc/csf/cpanel.comodo.allow` whiteists Sectigo SSL provider (formerly Comodo) *this is deprecated and will be removed
+- `/etc/csf/cpanel.ignore` makes lfd ignore cPanel update servers
+- `/etc/csf/cpanel.comodo.ignore` makes lfd ignore  Sectigo SSL provider (formerly Comodo)
+- `/etc/csf/cpanelalert.txt` is the default email template for WHM logins
 
 ### InterWorx
 
@@ -84,11 +98,11 @@ The InterWorx plugin for csf is auto-enabled. Enabling or Disabling the InterWor
 
 NOTE: Unless you have configured a root forwarder, you should edit the csf configuration settings in `/etc/csf/csf.conf` or via the UI and set `LF_ALERT_TO` to a suitable email address. After making any changes, restart csf and then lfd.
 
-
 ### OpenPanel
 
-OpenPanel integration is available for csf. Module is developed and maintained by OpenPanel themselves.
+OpenPanel/OpenAdmin integration is available in a form of a [OpenAdmin plugin](/redirect?to=https://openpanel.com/docs/admin/security/firewall/).
 
+The codebase is the same for all installations, the `csf.conf` file simply has the *GENERIC* option added.
 
 ### CentOS Web Panel (CWP)
 
