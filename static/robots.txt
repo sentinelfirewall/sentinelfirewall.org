@@ -1,4 +1,2 @@
-User-agent: *
-Disallow: /docs/0.82/
 
-Sitemap: https://wasmcloud.com/sitemap.xml
+Sitemap: https://sentinelfirewall.org/sitemap.xml
