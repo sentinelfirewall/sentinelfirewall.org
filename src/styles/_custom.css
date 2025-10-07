@@ -9,7 +9,7 @@
   --wasmcloud-code-diff-add-hue: 145;
   --wasmcloud-code-diff-remove-hue: 5;
 
-  --wasmcloud-color-base-brand-green: 0 188 142; /* #00bc8e; */
+  --wasmcloud-color-base-brand-green: 99 102 241; /* #6366f1; */
   --wasmcloud-color-brand-green: rgba(var(--wasmcloud-color-base-brand-green) / 1);
   --wasmcloud-color-base-brand-green-dark: 0 128 89; /* #008059; */
   --wasmcloud-color-brand-green-dark: rgba(var(--wasmcloud-color-base-brand-green-dark) / 1);
