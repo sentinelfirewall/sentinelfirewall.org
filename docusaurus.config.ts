@@ -192,11 +192,6 @@ const config = (async (): Promise<Config> => {
             label: 'GitHub',
             href: 'https://github.com/sentinelfirewall/sentinel',
           }),
-          await svgIconNavItem({
-            svgIconPath: './static/icons/slack.svg',
-            label: 'Slack',
-            href: 'https://slack.sentinelfirewall.org',
-          }),
         ],
       },
        announcementBar: {
