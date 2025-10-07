@@ -3,6 +3,10 @@ title: 'Requirements'
 sidebar_position: 3
 ---
 
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # Requirements
 
 Supported OS and Virtual servers:
@@ -33,3 +37,92 @@ Supported OS and Virtual servers:
 - KVM
 
 (** requires correct iptables configuration on host server)
+
+
+## Dependencies
+
+The following are a list of the minimal dependencies required for the Sentinel Firewall to function:
+
+<Tabs groupId="os" queryString>
+  <TabItem value="ubuntudebian" label="Ubuntu/Debian" default>
+```bash
+sudo apt-get update && sudo apt-get install -y \
+  perl \
+  libwww-perl \
+  libio-socket-ssl-perl \
+  libcrypt-ssleay-perl \
+  libnet-libidn-perl \
+  libio-socket-inet6-perl \
+  libsocket6-perl
+```
+  </TabItem>
+
+  <TabItem value="centosrhel" label="CentOS/RHEL" default>
+```bash
+sudo yum makecache && sudo yum install -y \
+  perl \
+  perl-libwww-perl \
+  perl-IO-Socket-SSL \
+  perl-Net-SSLeay \
+  perl-Net-LibIDN \
+  perl-IO-Socket-INET6 \
+  perl-Socket6
+```
+  </TabItem>
+
+</Tabs>
+
+
+And the following are Full Dependencies, needed for every function to work *(including sendmail for sending email alerts):
+
+<Tabs groupId="os" queryString>
+  <TabItem value="ubuntudebian" label="Ubuntu/Debian" default>
+```bash
+sudo apt-get update && sudo apt-get install -y \
+  perl \
+  libio-socket-ssl-perl \
+  libwww-perl \
+  libjson-perl \
+  libnet-ssleay-perl \
+  libcrypt-ssleay-perl \
+  liblwp-protocol-https-perl \
+  libgd-graph-perl \
+  libio-socket-inet6-perl \
+  libsocket6-perl \
+  libnet-libidn-perl \
+  libtime-hires-perl \
+  sendmail \
+  dnsutils \
+  unzip \
+  wget
+```
+  </TabItem>
+
+  <TabItem value="centosrhel" label="CentOS/RHEL" default>
+```bash
+sudo yum install -y \
+  perl \
+  perl-IO-Socket-SSL.noarch \
+  perl-Net-SSLeay \
+  perl-Net-LibIDN \
+  perl-IO-Socket-Inet6 \
+  perl-Socket6 \
+  perl-libwww-perl \
+  perl-JSON \
+  perl-LWP-Protocol-https.noarch \
+  perl-GDGraph \
+  perl-Math-BigInt \
+  perl-Time-HiRes \
+  perl-Socket \
+  net-tools \
+  sendmail \
+  ipset \
+  bind-utils \
+  wget \
+  unzip
+
+```
+  </TabItem>
+
+</Tabs>
+
