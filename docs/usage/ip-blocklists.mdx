@@ -28,6 +28,7 @@ Each URL is scanned for an IP/CIDR address per line and if found is blocked.
 
 Below is the **Default RBL** list automatically loaded from the [Sentinel Firewall GitHub repository](https://github.com/sentinelfirewall/sentinel/blob/main/csf/csf.rbls).
 
+```jsx live
 import React, { useEffect, useState } from "react";
 
 function DefaultRBLTable() {
@@ -70,7 +71,12 @@ function DefaultRBLTable() {
           <tr key={i} className="hover:bg-gray-50">
             <td className="p-2 border font-mono">{r.name}</td>
             <td className="p-2 border">
-              <a href={r.url} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
+              <a
+                href={r.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline"
+              >
                 {r.url}
               </a>
             </td>
