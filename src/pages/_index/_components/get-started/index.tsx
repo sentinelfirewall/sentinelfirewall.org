@@ -36,7 +36,7 @@ function GetStarted({
           </GridItem>
           <GridItem>
             <img src="/pages/home/icon/compose.svg" alt="" />
-            <h4>Upgrade from CSFt</h4>
+            <h4>Upgrade from CSF</h4>
             <p>Upgrade from CSF to Sentinel on your existing server with ConfigServer Firewall</p>
             <a
               href="docs/upgrade-from-csf/"
