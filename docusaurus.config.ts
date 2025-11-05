@@ -184,7 +184,7 @@ const config = (async (): Promise<Config> => {
             href: 'https://github.com/sentinelfirewall/sentinel',
             'aria-label': 'Star Sentinel on GitHub',
             position: 'right',
-            html: `<span class="badge badge--outline">Star us! ★ <github-count repo="sentinelfirewall/sentinel">10</github-count></span>`,
+            html: `<span class="badge badge--outline">Star us! ★ <github-count repo="sentinelfirewall/sentinel">20</github-count></span>`,
             className: 'sidebar-hidden',
           },
           await svgIconNavItem({
