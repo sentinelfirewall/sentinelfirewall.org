@@ -7,7 +7,6 @@ export default function RemoteChangelog() {
     fetch('https://raw.githubusercontent.com/sentinelfirewall/sentinel/refs/heads/main/csf/changelog.txt')
       .then((res) => res.text())
       .then((text) => {
-        // ## are headers https://github.com/sentinelfirewall/sentinel/blob/main/csf/changelog.txt
         const rawEntries = text.split(/^##\s+/m).filter(Boolean);
         const parsedEntries = rawEntries.map(entry => {
           const [versionLine, ...rest] = entry.split('\n');
@@ -18,10 +17,43 @@ export default function RemoteChangelog() {
         });
         setEntries(parsedEntries);
       })
-      .catch(() => setEntries([{ version: 'Error', content: 'Please open: https://raw.githubusercontent.com/sentinelfirewall/sentinel/refs/heads/main/csf/changelog.txt' }]));
+      .catch(() =>
+        setEntries([
+          {
+            version: 'Error',
+            content:
+              'Please open: https://raw.githubusercontent.com/sentinelfirewall/sentinel/refs/heads/main/csf/changelog.txt'
+          }
+        ])
+      );
   }, []);
 
   if (!entries) return <p>Loading changelog...</p>;
+
+  const parseMarkdownLinks = (line) => {
+    const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
+    const parts = [];
+    let lastIndex = 0;
+    let match;
+
+    while ((match = linkRegex.exec(line)) !== null) {
+      if (match.index > lastIndex) {
+        parts.push(line.substring(lastIndex, match.index));
+      }
+      parts.push(
+        <a key={match.index} href={match[2]} target="_blank" rel="noopener noreferrer" style={{ color: '#1a0dab' }}>
+          {match[1]}
+        </a>
+      );
+      lastIndex = match.index + match[0].length;
+    }
+
+    if (lastIndex < line.length) {
+      parts.push(line.substring(lastIndex));
+    }
+
+    return parts;
+  };
 
   return (
     <div>
@@ -29,7 +61,7 @@ export default function RemoteChangelog() {
         <div key={idx} style={{ marginBottom: '2rem' }}>
           <h2>{entry.version}</h2>
           {entry.content.split('\n').map((line, i) => (
-            <p key={i}>{line}</p>
+            <p key={i}>{parseMarkdownLinks(line)}</p>
           ))}
         </div>
       ))}
