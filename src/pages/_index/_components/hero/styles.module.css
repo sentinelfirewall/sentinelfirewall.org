@@ -1,6 +1,6 @@
 :root {
   --hero-heading-font-family: var(--wasmcloud-font-heading);
-  --hero-heading-font-size: clamp(2.9rem, 9.5vw, 9rem);
+  --hero-heading-font-size: clamp(2.9rem, 9.5vw, 6rem);
 }
 
 .hero {
