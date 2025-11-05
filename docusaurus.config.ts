@@ -114,7 +114,7 @@ const config = (async (): Promise<Config> => {
             lastVersion: 'current',
             versions: {
               current: {
-                label: '15.11',
+                label: '15.12',
               },
             },
           },
